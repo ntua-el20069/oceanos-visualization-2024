@@ -9,6 +9,8 @@ which is explained further below.
 
 # roundSlider - A free jQuery plugin
 
+Link: https://github.com/soundar24/roundSlider.git
+
 [![npm](https://img.shields.io/npm/v/round-slider)](https://www.npmjs.com/package/round-slider) [![GitHub](https://img.shields.io/github/license/soundar24/roundSlider)](https://github.com/soundar24/roundSlider/blob/master/LICENSE)
 
 ### What's this ?
