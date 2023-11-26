@@ -1,8 +1,8 @@
 [build]
-  publish = "/" # Replace 'demo' with the directory containing your HTML file
+  publish = "demo" # Replace 'demo' with the directory containing your HTML file
   base = "/"
 
 [[redirects]]
 from = "/*"
-to = "/demo/telemetry.html"
+to = "/telemetry.html"
 status = 200
