@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemetry visualization</title>
+    <script src="scripts/jquery-1.11.3.min.js"></script>
+    <link href="../dist/roundslider.min.css" rel="stylesheet" />
+    <script src="../dist/roundslider.min.js"></script>
+</head>
+<body> 
+    <div>
+        <h2 id="mode">Normal Mode</h2>
+        <button id="switchMode" onclick="changeSimulate()"> Switch to Simulation Mode </button>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function generateRandomFloat(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    
+
+    class Data {
+        constructor(id, definition,  min = -10, max = 110, step = 0.1, value = (min + max) / 2) {
+            this.id = id;
+            this.definition = definition;
+            this.min = min;
+            this.max = max;
+            this.step = step;
+            this.value = value;
+        }
+        change(value){
+            this.value = value;
+        }
+    }
+
+datalist = [ 
+    new Data("tempMosfet", "Mosfet Temperature (°C)", -10, 100, 0.1) , 
+    new Data("tempMotor", "Motor Temperature (°C)", 5, 80, 0.01) 
+]
+
+// Construction of divs for visualization
+for (data of datalist){
+    const parent = document.querySelector('body')
+
+    // Create main elements
+    const dataDiv = document.createElement('div');
+    dataDiv.classList.add('visualization');
+
+    const h3Element = document.createElement('h3');
+    h3Element.textContent = data.definition;
+
+    const containerDiv = document.createElement('div');
+    containerDiv.classList.add('container');
+
+    const controlDiv = document.createElement('div');
+    controlDiv.classList.add('control');
+
+    const shapeDiv = document.createElement('div');
+    shapeDiv.id = data.id;
+
+    // Append elements to construct the structure
+    controlDiv.appendChild(shapeDiv);
+    containerDiv.appendChild(controlDiv);
+
+    dataDiv.appendChild(h3Element);
+    dataDiv.appendChild(containerDiv);
+
+    // Add the constructed element to the document body or another parent element
+    document.body.appendChild(dataDiv);
+}
+
+function display(){
+    $(document).ready(function () {             // Here I use the function from the roundSlider library
+        for (data of datalist)  
+            $(`#${data.id}`).roundSlider({
+                svgMode: true,
+                value: data.value,                          // this is what changes ... (e.g. the value of tempMosfet)
+                sliderType: "min-range",
+                circleShape: "half-top",
+                min: data.min,
+                max: data.max,
+                step: data.step,
+                readOnly: true
+            });
+    });
+}
+
+display();
+
+let simulate = false;
+let modeText = '';
+let switchText = '';
+function changeSimulate(){ 
+    simulate = !simulate; 
+    console.log(simulate);
+    if (simulate) { modeText = "Simulation Mode"; switchText = 'Switch to Normal Mode'; }
+    else { modeText = "Normal Mode"; switchText = 'Switch to Simulation Mode'; }
+    document.querySelector('#mode').textContent = modeText;
+    document.querySelector('#switchMode').textContent = switchText;
+}
+
+setInterval(function() {
+    for (data of datalist) {
+        
+        if (simulate) {
+            const randomFloat = generateRandomFloat(data.min, data.max);
+            data.change(randomFloat);
+            console.log(randomFloat);
+        }
+        display();
+    }
+         // Change this to display the float where you want
+         // You can perform other operations with the random float here
+}, 1000); // Interval set to 1000ms (1 second)
+    
+
+</script>
+
+<style>
+        h1 span {
+            font-size: 0.6em;
+        }
+        .visualization {
+          display: inline-block;
+          padding: 10px 30px;
+          border: 1px dotted;
+          margin-right: 20px;
+          overflow: hidden;
+        }
+        .container {
+          height: 180px;
+          width: 400px;
+        }
+        .container > div {
+          float: left;
+        }
+        .control {
+            margin-right: 70px;
+        }
+</style>
+
+</html>
