@@ -13,12 +13,19 @@
         <h2 id="mode">Normal Mode</h2>
         <button id="switchMode" onclick="changeSimulate()"> Switch to Simulation Mode </button>
     </div>
+    <div class="grid-container">
+
+    </div>
 </body>
 
 <script type="text/javascript">
-    function generateRandomFloat(min, max) {
-        return Math.random() * (max - min) + min;
-    }
+
+function generateRandomFloat(min, max, step) {
+    var randomNumber = Math.random() * (max - min) + min;
+    if (step >= 0.1) return Math.round(randomNumber * 10) / 10;
+    else if (step >= 0.01) return Math.round(randomNumber * 100) / 100;
+    else return randomNumber;
+}
 
     
 
@@ -45,9 +52,36 @@ datalist = [
     new Data("tempMotor", "Motor Temperature (°C)", 75) 
 ]
 
+numericData = [
+   new Data('autonomy', 'Autonomy'),
+   new Data('miles', 'Miles (miles)'),
+   new Data('milesPerLap', 'Miles per Lap (miles)'),
+   new Data('rpm', 'RPM (rpm)')
+]
+
+const parent = document.querySelector('.grid-container');
+
+for (data of numericData){
+    
+    const dataDiv = document.createElement('div');
+    dataDiv.classList.add('visualization');
+    const h3Element = document.createElement('h3');
+    h3Element.textContent = data.definition;
+    const pElement = document.createElement('p');
+    pElement.id = data.id;
+    pElement.textContent = data.value;
+    // Append elements to construct the structure
+    
+    dataDiv.appendChild(h3Element);
+    dataDiv.appendChild(pElement);
+
+    // Add the constructed element to the document body or another parent element
+    parent.appendChild(dataDiv);
+}
+
 // Construction of divs for visualization
 for (data of datalist){
-    const parent = document.querySelector('body')
+    
 
     // Create main elements
     const dataDiv = document.createElement('div');
@@ -73,7 +107,7 @@ for (data of datalist){
     dataDiv.appendChild(containerDiv);
 
     // Add the constructed element to the document body or another parent element
-    document.body.appendChild(dataDiv);
+    parent.appendChild(dataDiv);
 }
 
 function display(){
@@ -89,6 +123,7 @@ function display(){
                 step: data.step,
                 readOnly: true
             });
+        for (data of numericData) document.querySelector(`#${data.id}`).textContent = data.value;
     });
 }
 
@@ -107,10 +142,9 @@ function changeSimulate(){
 }
 
 setInterval(function() {
-    for (data of datalist) {
-        
+    for (data of datalist.concat(numericData)) {
         if (simulate) {
-            const randomFloat = generateRandomFloat(data.min, data.max);
+            const randomFloat = generateRandomFloat(data.min, data.max, data.step);
             data.change(randomFloat);
             console.log(randomFloat);
         }
@@ -127,23 +161,58 @@ setInterval(function() {
         h1 span {
             font-size: 0.6em;
         }
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Adjust as needed */
+        }
         .visualization {
           display: inline-block;
-          padding: 10px 30px;
+          padding: 10px 20px;
           border: 1px dotted;
-          margin-right: 20px;
+          margin-right: 2%;
           overflow: hidden;
+
+        flex: 0 0 18%;
+        /*  width: calc(33.3% - 10px);  /* Adjust width or use percentages */
+        margin-bottom: 1%; /* Optional margin */
+        background-color: #f0f0f0; /* Just for visualization */
+        text-align: center; /* Optional */
+
         }
         .container {
-          height: 180px;
-          width: 400px;
+            max-width: 100%; /* Container takes full width of the viewport */
+            padding: 0 20px; /* Add padding to the sides */
+            box-sizing: border-box; /* Include padding and border in the width */
+            height: 180px;
+            width: 400px;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            margin: 0 auto; /* To center the container itself on the page */ 
         }
-        .container > div {
-          float: left;
-        }
+        /*.container > div {
+          float: middle;
+        }*/
         .control {
-            margin-right: 70px;
+            margin-right: 20px;
         }
+
+        @media screen and (max-width: 768px) {
+            .visualization {
+                flex: 0 0 100%; /* Full width for smaller screens */
+                margin-right: 0; /* No right margin */
+            }
+            
+            .container {
+                width: 100%; /* Container takes full width of the viewport */
+            }
+            
+            .control {
+                margin-right: 10px; /* Adjust margin */
+            }
+        }
+
 </style>
 
 </html>
