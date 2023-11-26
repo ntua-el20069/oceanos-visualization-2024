@@ -23,11 +23,11 @@
     
 
     class Data {
-        constructor(id, definition,  min = -10, max = 110, step = 0.1, value = (min + max) / 2) {
+        constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2) {
             this.id = id;
             this.definition = definition;
-            this.min = min;
             this.max = max;
+            this.min = min;
             this.step = step;
             this.value = value;
         }
@@ -37,8 +37,12 @@
     }
 
 datalist = [ 
-    new Data("tempMosfet", "Mosfet Temperature (°C)", -10, 100, 0.1) , 
-    new Data("tempMotor", "Motor Temperature (°C)", 5, 80, 0.01) 
+    new Data("charge", "State of Charge (%)", 100) , 
+    new Data("tempBattery", "Battery Temperature (°C)", 50) , 
+    new Data("speed", "Speed (kn)", 20) , 
+    new Data("tempMosfet", "Mosfet Temperature (°C)", 90) , 
+    new Data("motorCurrent", "Motor Current (A)", 250) , 
+    new Data("tempMotor", "Motor Temperature (°C)", 75) 
 ]
 
 // Construction of divs for visualization
