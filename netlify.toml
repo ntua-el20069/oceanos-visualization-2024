@@ -1,0 +1,3 @@
+[build]
+  publish = "demo" # Replace 'demo' with the directory containing your HTML file
+
