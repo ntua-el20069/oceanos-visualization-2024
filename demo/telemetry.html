@@ -21,6 +21,9 @@
 <script type="text/javascript">
 
 const noError = 'No error';
+const regular_color = "#54BBE0";
+const above_limit_color = "#EEAA00";
+let color = regular_color;
 
 function generateRandomFloat(min, max, step) {
     var randomNumber = Math.random() * (max - min) + min;
@@ -32,7 +35,7 @@ function generateRandomFloat(min, max, step) {
     
 
     class Data {
-        constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2, error = noError) {
+        constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2, error = noError, limit = 0.25*min + 0.75*max) {
             this.id = id;
             this.definition = definition;
             this.max = max;
@@ -40,6 +43,7 @@ function generateRandomFloat(min, max, step) {
             this.step = step;
             this.value = value;
             this.error = error;
+            this.limit = limit;
         }
         change(value, error){
             this.value = value;
@@ -114,7 +118,10 @@ for (data of numericData.concat(datalist)){
 
 function display(){
     $(document).ready(function () {             // Here I use the function from the roundSlider library
-        for (data of datalist)  
+        for (data of datalist)  {
+            if (data.value > data.limit) color = above_limit_color;
+            else color = regular_color;
+            
             $(`#${data.id}`).roundSlider({
                 svgMode: true,
                 value: data.value,                          // this is what changes ... (e.g. the value of tempMosfet)
@@ -123,8 +130,10 @@ function display(){
                 min: data.min,
                 max: data.max,
                 step: data.step,
-                readOnly: true
+                readOnly: true,
+                rangeColor: color
             });
+        }
         for (data of numericData) document.querySelector(`#${data.id}`).textContent = data.value;
         
         for (data of datalist.concat(numericData)) {
