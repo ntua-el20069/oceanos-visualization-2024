@@ -14,11 +14,13 @@
         <button id="switchMode" onclick="changeSimulate()"> Switch to Simulation Mode </button>
     </div>
     <div class="grid-container">
-
+        
     </div>
 </body>
 
 <script type="text/javascript">
+
+const noError = 'No error';
 
 function generateRandomFloat(min, max, step) {
     var randomNumber = Math.random() * (max - min) + min;
@@ -30,16 +32,18 @@ function generateRandomFloat(min, max, step) {
     
 
     class Data {
-        constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2) {
+        constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2, error = noError) {
             this.id = id;
             this.definition = definition;
             this.max = max;
             this.min = min;
             this.step = step;
             this.value = value;
+            this.error = error;
         }
-        change(value){
+        change(value, error){
             this.value = value;
+            this.error = error;
         }
     }
 
@@ -61,51 +65,49 @@ numericData = [
 
 const parent = document.querySelector('.grid-container');
 
-for (data of numericData){
+for (data of numericData.concat(datalist)){
     
-    const dataDiv = document.createElement('div');
-    dataDiv.classList.add('visualization');
-    const h3Element = document.createElement('h3');
-    h3Element.textContent = data.definition;
-    const pElement = document.createElement('p');
-    pElement.id = data.id;
-    pElement.textContent = data.value;
-    // Append elements to construct the structure
-    
-    dataDiv.appendChild(h3Element);
-    dataDiv.appendChild(pElement);
-
-    // Add the constructed element to the document body or another parent element
-    parent.appendChild(dataDiv);
-}
-
-// Construction of divs for visualization
-for (data of datalist){
-    
-
-    // Create main elements
-    const dataDiv = document.createElement('div');
+    let dataDiv = document.createElement('div');
     dataDiv.classList.add('visualization');
 
-    const h3Element = document.createElement('h3');
+    let h3Element = document.createElement('h3');
     h3Element.textContent = data.definition;
 
-    const containerDiv = document.createElement('div');
-    containerDiv.classList.add('container');
-
-    const controlDiv = document.createElement('div');
-    controlDiv.classList.add('control');
-
-    const shapeDiv = document.createElement('div');
-    shapeDiv.id = data.id;
-
-    // Append elements to construct the structure
-    controlDiv.appendChild(shapeDiv);
-    containerDiv.appendChild(controlDiv);
+    let errorElement = document.createElement('output');
+    errorElement.id = `${data.id}-error`;
+    errorElement.style.display = 'block';
+    errorElement.style.visibility = 'visible';
+    errorElement.style.color = 'red';
+    errorElement.textContent = data.error;
+    
 
     dataDiv.appendChild(h3Element);
-    dataDiv.appendChild(containerDiv);
+    
+    if (numericData.includes(data)){
+        
+        let pElement = document.createElement('p');
+        pElement.id = data.id;
+        pElement.textContent = data.value;
 
+        dataDiv.appendChild(pElement);
+    }
+    else {
+        let containerDiv = document.createElement('div');
+        containerDiv.classList.add('container');
+
+        let controlDiv = document.createElement('div');
+        controlDiv.classList.add('control');
+
+        let shapeDiv = document.createElement('div');
+        shapeDiv.id = data.id;
+
+        // Append elements to construct the structure
+        controlDiv.appendChild(shapeDiv);
+        containerDiv.appendChild(controlDiv);
+        dataDiv.appendChild(containerDiv);
+    }
+    
+    dataDiv.appendChild(errorElement);
     // Add the constructed element to the document body or another parent element
     parent.appendChild(dataDiv);
 }
@@ -124,6 +126,13 @@ function display(){
                 readOnly: true
             });
         for (data of numericData) document.querySelector(`#${data.id}`).textContent = data.value;
+        
+        for (data of datalist.concat(numericData)) {
+            const errorElement = document.querySelector(`#${data.id}-error`);
+            errorElement.textContent = data.error;
+            if (data.error != noError) errorElement.style.visibility = 'visible';
+            else errorElement.style.visibility = 'hidden';
+        }
     });
 }
 
@@ -145,8 +154,11 @@ setInterval(function() {
     for (data of datalist.concat(numericData)) {
         if (simulate) {
             const randomFloat = generateRandomFloat(data.min, data.max, data.step);
-            data.change(randomFloat);
+            let error = noError;
+            if (Math.random() < 0.3) error = 'Error!';  // error with probability 0.3 
+            data.change(randomFloat, error);
             console.log(randomFloat);
+
         }
         display();
     }
