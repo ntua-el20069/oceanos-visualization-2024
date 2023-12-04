@@ -11,7 +11,9 @@
 <body> 
     <div>
         <h2 id="mode">Normal Mode</h2>
-        <button id="switchMode" onclick="changeSimulate()"> Switch to Simulation Mode </button>
+        <button class="switchMode" onclick="changeSimulate('Normal')"> Switch to Normal Mode </button>
+        <button class="switchMode" onclick="changeSimulate('Simulation')"> Switch to Simulation Mode </button>
+        <button class="switchMode" onclick="changeSimulate('Simulate-data.csv')"> Switch to Simulate-data.csv Mode </button>
     </div>
     <div class="grid-container">
         
@@ -46,24 +48,24 @@ function generateRandomFloat(min, max, step) {
             this.limit = limit;
         }
         change(value, error){
-            this.value = value;
+            if (value != '' && value != ' ' && value != '\n') this.value = value;
             this.error = error;
         }
     }
 
-datalist = [ 
+datalist = [                        // CAUTION!  The data.id should match the fieldname from fieldnames list
     new Data("charge", "State of Charge (%)", 100) , 
-    new Data("tempBattery", "Battery Temperature (°C)", 50) , 
+    new Data("battery_temperature", "Battery Temperature (°C)", 50) , 
     new Data("speed", "Speed (kn)", 20) , 
-    new Data("tempMosfet", "Mosfet Temperature (°C)", 90) , 
-    new Data("motorCurrent", "Motor Current (A)", 250) , 
-    new Data("tempMotor", "Motor Temperature (°C)", 75) 
+    new Data("motor_tempMosfet", "Mosfet Temperature (°C)", 90) , 
+    new Data("motor_current", "Motor Current (A)", 250) , 
+    new Data("motor_tempMotor", "Motor Temperature (°C)", 75) 
 ]
 
-numericData = [
+numericData = [                     // CAUTION!  The data.id should match the fieldname from fieldnames list
    new Data('autonomy', 'Autonomy'),
    new Data('miles', 'Miles (miles)'),
-   new Data('milesPerLap', 'Miles per Lap (miles)'),
+   new Data('miles_lap', 'Miles per Lap (miles)'),
    new Data('rpm', 'RPM (rpm)')
 ]
 
@@ -147,26 +149,96 @@ function display(){
 
 display();
 
-let simulate = false;
+//let simulate = false;
+let mode = '';
 let modeText = '';
 let switchText = '';
-function changeSimulate(){ 
-    simulate = !simulate; 
-    console.log(simulate);
-    if (simulate) { modeText = "Simulation Mode"; switchText = 'Switch to Normal Mode'; }
-    else { modeText = "Normal Mode"; switchText = 'Switch to Simulation Mode'; }
+function changeSimulate(modeInput){
+    mode = modeInput; 
+    //simulate = !simulate; 
+    // console.log(simulate);
+     switch (mode){
+        case 'Normal': modeText = "Normal Mode"; break;
+        case 'Simulation': modeText = "Simulation Mode"; break;
+        case 'Simulate-data.csv': modeText = "Simulate-data.csv Mode"; break;
+    }
+    //if (simulate) { modeText = "Simulation Mode"; switchText = 'Switch to Normal Mode'; }
+    //else { modeText = "Normal Mode"; switchText = 'Switch to Simulation Mode'; }
     document.querySelector('#mode').textContent = modeText;
-    document.querySelector('#switchMode').textContent = switchText;
+    //document.querySelector('#switchMode').textContent = switchText;
 }
 
+// fetch CSV with JavaScript
+// Function to fetch and parse CSV data with a different delimiter (;)
+async function fetchAndParseCSV(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.text();
+
+    // Splitting CSV rows using the semicolon delimiter
+    const rows = data.split('\n');
+    const headers = rows[0].split(';'); // Change delimiter here
+    const result = [];
+
+    for (let i = 1; i < rows.length; i++) {
+      const values = rows[i].split(';'); // Change delimiter here
+      if (values.length === headers.length) {
+        const obj = {};
+        for (let j = 0; j < headers.length; j++) {
+          obj[headers[j]] = values[j];
+        }
+        result.push(obj);
+      }
+    }
+
+    return result;
+  } catch (error) {
+    console.error('Error fetching or parsing CSV:', error);
+    return null;
+  }
+}
+
+const fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
+
+// Usage example
+const csvURL = 'csv/data2023.csv'; // Replace with your CSV file URL
+fetchAndParseCSV(csvURL)
+  .then(dataset => {
+    if (dataset) {
+      console.log('Parsed CSV data:', dataset);
+      console.log('First 3 rows');
+      for (let i=0; i<3; i++) {
+        let row = dataset[i];
+        console.log(`row ${i}:`);
+        for (field of fieldnames) console.log(`${field}: ${row[field]}`);
+      }
+      // Use the parsed data as needed
+      // Basic Operation
+
+
+                        // if you want to chack data from rows  a (start)-> b (end)
+                        // set     start = a,    and    samples = b-a 
+let start = 15000;      // this is used to use data from rows 15000 - 16000
+let samples = 1000;
+let counter = 0;
 setInterval(function() {
-    for (data of datalist.concat(numericData)) {
-        if (simulate) {
+    if (mode=='Simulate-data.csv' || mode=='Simulation') {
+        counter += 1;
+        counter %= samples;
+        for (data of datalist.concat(numericData)) {
+        
             const randomFloat = generateRandomFloat(data.min, data.max, data.step);
             let error = noError;
             if (Math.random() < 0.3) error = 'Error!';  // error with probability 0.3 
-            data.change(randomFloat, error);
-            console.log(randomFloat);
+            if(mode=='Simulation'){
+                data.change(randomFloat, error);
+                //console.log(randomFloat);
+            }
+            else {
+                //console.log(typeof(dataset[counter][data.id]));
+                data.change(dataset[start + counter][data.id], noError);
+                
+            }
 
         }
         display();
@@ -175,6 +247,16 @@ setInterval(function() {
          // You can perform other operations with the random float here
 }, 1000); // Interval set to 1000ms (1 second)
     
+
+      //
+    } else {
+      console.log('Failed to parse CSV data.');
+    }
+  });
+
+
+//
+
 
 </script>
 
@@ -233,6 +315,7 @@ setInterval(function() {
                 margin-right: 10px; /* Adjust margin */
             }
         }
+
 
 </style>
 
