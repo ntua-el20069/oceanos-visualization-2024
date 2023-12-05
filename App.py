@@ -1,4 +1,18 @@
 
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return 'Hello, Oceanos NTUA!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+'''
 import requests
 username = 'oceanosntua'
 token = '51fd77231533ea67015675cf29889434f24a391d'
@@ -17,7 +31,7 @@ else:
                         
 
 ########
-'''
+
 import csv
 import requests
 
