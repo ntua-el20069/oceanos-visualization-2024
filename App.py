@@ -1,18 +1,23 @@
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    csv_file = 'demo/csv/data2023.csv'  # Name of your CSV file
+    last_line = read_last_line_of_csv(csv_file)
+    send_data_to_pythonanywhere(API_TOKEN, last_line, API_URL)
     return 'Hello, Oceanos NTUA!'
+
+app.route('/demo')
+def telemetry_demo():
+    render_template('')
 
 if __name__ == '__main__':
     app.run(debug=True)
 
 
-
-'''
 import requests
 username = 'oceanosntua'
 token = '51fd77231533ea67015675cf29889434f24a391d'
@@ -61,4 +66,3 @@ if __name__ == "__main__":
     csv_file = 'demo/csv/data2023.csv'  # Name of your CSV file
     last_line = read_last_line_of_csv(csv_file)
     send_data_to_pythonanywhere(API_TOKEN, last_line, API_URL)
-'''
