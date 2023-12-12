@@ -4,5 +4,5 @@
 
 [[redirects]]
 from = "/*"
-to = "/telemetry.html"
+to = "/test.html"
 status = 200
