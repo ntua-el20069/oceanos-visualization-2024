@@ -16,7 +16,8 @@ class Data {
     }
     change(value, error){
         if (value != '' && value != ' ' && value != '\n') this.value = value;
-        this.error = error;
+        if(value > this.max || value < this.min) this.error = String(value)
+        else this.error = error;
     }
 }
 
