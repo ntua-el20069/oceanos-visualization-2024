@@ -8,7 +8,7 @@ To run the visualization follow the steps below:
 
 1. Git clone the repo 
 2. Make a virtual environment as specified here [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
-3. Install dependencies (requirements.txt) as specified in the link above (if anything throws error try removing it from 'requirements.txt' - some dependencies are unnecessary)
+3. Install dependencies (`requirements.txt`) as specified in the link above (if anything throws error try removing it from `requirements.txt` - some dependencies are unnecessary)
 4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
 5. Run in a terminal the `dummy_server.py` python file for the ngrok server
 6. Run `App.py` for the visualization 
