@@ -11,7 +11,7 @@ To run the visualization follow the steps below:
 3. Install dependencies (requirements.txt) as specified in the link above
 4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
 5. Run in a terminal the `dummy_server.py` python file for the ngrok server
-6. Run App.py for the visualization 
+6. Run `App.py` for the visualization 
 
 (If you only want to see the simulation modes, you can omit steps 4,5)
 
