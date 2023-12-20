@@ -14,41 +14,27 @@ app = Flask(__name__)
 
 #LOCK#lock = Lock()  # Create a lock object
 
-time_var = ''  # Global variable to store the time value
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/reload')
-def reload():
-    #LOCK#with lock:    
-    global time_var
-    print(time_var)
-    return jsonify({'time_var': time_var})  
-
-
-app.route('/demo')
-def telemetry_demo():
-    render_template('')
+data_now = []  # Global variable to store the time value
 
 def send_messages(server_socket):
-    global time_var
+    global data_now
+    counter = 10
     while True:
         # 8ewroume mia ka8ysterhsh, an den mas aresei thn allazoyme
         time.sleep(0.5)
         # diabazw to arxeio
-        data = pd.read_csv('demo/csv/data2023.csv', delimiter=';')
+        data = pd.read_csv('static/csv/data.csv', delimiter=',')
         # ftiaxnw dianysma me tis times apo thn teleytaia seira tou arxeiou
         
         ######## Random Index for Demo
 
-        start = 0  # Replace with your desired start index
-        end = len(data) - 1  # Replace with your desired end index
+        #start = 0  # Replace with your desired start index
+        #end = len(data) - 1  # Replace with your desired end index
 
         #  random integer between start and end
-        random_i = random.randint(start, end)
-
+        
+        counter = ( counter + 1 ) % len(data) #random.randint(start, end)
+        random_i = counter
         #######
 
         data1 = np.array(data.iloc[random_i].values)    #### CHANGE !!!!! random_i to -1 for real time last data
@@ -79,25 +65,34 @@ def send_messages(server_socket):
         battery_voltage = str(data1[19])
         charge = str(data1[20])
         battery_temperature = str(data1[21])
-        message = str({"current_time": current_time,"latitude": lat, "longitude": longt,"speed": speed, "miles": miles, "miles_lap": miles_lap, "rtc": rtc,"millis": millis,"rpm": rpm,"input_voltage": input_voltage,"motor_watt":motor_watt,"motor_tempMosfet": motor_tempMosfet,"motor_tempMotor": motor_tempMotor,"motor_current":motor_current,"battery_current":battery_current,"motor_dutyCycle":motor_dutyCycle,"motor_error":motor_error, "rasp_temp": rasp_temp, "battery_ampere": battery_ampere, "battery_voltage": battery_voltage, "charge": charge, "battery_temperature": battery_temperature})
+        
+        #LOCK#with lock:
+        data_now = {"current_time": current_time,"latitude": lat, "longitude": longt,"speed": speed, "miles": miles, "miles_lap": miles_lap, "rtc": rtc,"millis": millis,"rpm": rpm,"input_voltage": input_voltage,"motor_watt":motor_watt,"motor_tempMosfet": motor_tempMosfet,"motor_tempMotor": motor_tempMotor,"motor_current":motor_current,"battery_current":battery_current,"motor_dutyCycle":motor_dutyCycle,"motor_error":motor_error, "rasp_temp": rasp_temp, "battery_ampere": battery_ampere, "battery_voltage": battery_voltage, "charge": charge, "battery_temperature": battery_temperature}
+        message = str(data_now)
         #stelnoyme to mnm ston server
         server_socket.sendall(message.encode())
         ### Update global time
-        
-        #LOCK#with lock:
-        time_var = current_time
             
-  
-if __name__ == '__main__':
 
-    #with app.app_context():
-    #    g.time_var = ''
+@app.route('/')
+def home():
+    return render_template('telemetry.html') 
+
+@app.route('/reload')
+def reload():
+    #LOCK#with lock:    
+    global data_now
+    #print(data_now)
+    return jsonify(data_now)  
+
+
+
+if __name__ == '__main__':
 
     # Connect to the server using the TCP tunnel URL
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
     server_socket.connect(('8.tcp.eu.ngrok.io', 20375))
-    print("Connected to the server.")
-
     # Receive the welcome message from the server
     data = server_socket.recv(1024)
     print(data.decode())
@@ -105,7 +100,7 @@ if __name__ == '__main__':
     # Start separate threads for sending and receiving messages
     send_thread = Thread(target=send_messages, args=(server_socket,))
     send_thread.start()
-    
+    print("Connected to the server.")
 
     ###  Run the Flask app for the web browser
     app.run(debug=True)

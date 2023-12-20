@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Telemetry visualization</title>
+        <script src="{{ url_for('static', filename='scripts/jquery-1.11.3.min.js') }}"></script>
+        <link type="text/css" href="{{ url_for('static', filename='dist/roundslider.min.css') }}" rel="stylesheet" />
+        <link type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}" rel="stylesheet" />
+        <script src="{{ url_for('static', filename='dist/roundslider.min.js') }}"></script>
+
+        <script defer>
+            const csvURL = "{{ url_for('static', filename='csv/data.csv') }}";  // Replace with your CSV file URL for Simulate csv
+            let localDataSet;
+        </script>
+        
+        <script src="{{ url_for('static', filename='functions/helpers.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='functions/data.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='functions/fetch.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='functions/create.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='functions/display.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='functions/events.js') }}" defer></script>
+    </head>
+
+    <body> 
+        <div>
+            <h2 id="mode" style="display: inline-block;">Normal Mode</h2> 
+            <h3 style="color: red; display: inline-block;"> For Normal Mode you should run NGROK Server </h3> <br>
+
+            <button class="switchMode" onclick="changeSimulate('Normal')"> Switch to Normal Mode </button>
+            <button class="switchMode" onclick="changeSimulate('Simulation')"> Switch to Simulation Mode </button>
+            <button class="switchMode" onclick="changeSimulate('Simulate csv')"> Switch to Simulate csv Mode </button>
+            <button class="switchMode" onclick="changeSimulate('Static')"> Switch to Static Mode </button>
+        </div>
+        <div class="grid-container">
+            
+        </div>
+    </body>
+
+</html>

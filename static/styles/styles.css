@@ -1,0 +1,55 @@
+h1 span {
+    font-size: 0.6em;
+}
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust as needed */
+}
+.visualization {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px dotted;
+  margin-right: 2%;
+  overflow: hidden;
+
+flex: 0 0 18%;
+/*  width: calc(33.3% - 10px);  /* Adjust width or use percentages */
+margin-bottom: 1%; /* Optional margin */
+background-color: #f0f0f0; /* Just for visualization */
+text-align: center; /* Optional */
+
+}
+.container {
+    max-width: 100%; /* Container takes full width of the viewport */
+    padding: 0 20px; /* Add padding to the sides */
+    box-sizing: border-box; /* Include padding and border in the width */
+    height: 180px;
+    width: 400px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0 auto; /* To center the container itself on the page */ 
+}
+/*.container > div {
+  float: middle;
+}*/
+.control {
+    margin-right: 20px;
+    
+}
+
+@media screen and (max-width: 768px) {
+    .visualization {
+        flex: 0 0 100%; /* Full width for smaller screens */
+        margin-right: 0; /* No right margin */
+    }
+    
+    .container {
+        width: 100%; /* Container takes full width of the viewport */
+    }
+    
+    .control {
+        margin-right: 10px; /* Adjust margin */
+    }
+}
