@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=App
+Exec=/usr/bin/python3 /home/nikolaospapa3/Documents/Oceanos/Telemetry/oceanos-visualization-2024/App.py
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=bash -c 'sleep 5 && firefox http://localhost:5000/'
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Visualization Firefox
+Name=Visualization Firefox
+Comment[en_US]=
+Comment=

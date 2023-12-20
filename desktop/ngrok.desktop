@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=ngrok start oceanos
+Terminal=true
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=NGROK
+Name=NGROK
+Comment[en_US]=
+Comment=

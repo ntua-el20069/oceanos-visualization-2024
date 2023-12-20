@@ -23,7 +23,9 @@ def send_messages(server_socket):
         # 8ewroume mia ka8ysterhsh, an den mas aresei thn allazoyme
         time.sleep(0.5)
         # diabazw to arxeio
-        data = pd.read_csv('static/csv/data.csv', delimiter=',')
+        
+        csv_url = 'static/csv/data.csv' 
+        data = pd.read_csv(csv_url, delimiter=',')
         # ftiaxnw dianysma me tis times apo thn teleytaia seira tou arxeiou
         
         ######## Random Index for Demo
