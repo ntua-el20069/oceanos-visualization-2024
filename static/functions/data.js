@@ -2,6 +2,7 @@ const noError = 'No error';
 const regular_color = "#54BBE0";
 const above_limit_color = "#EEAA00";
 let color = regular_color;
+const maxOmittedValues = 15;
 
 class Data {
     constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2, error = noError, limit = 0.25*min + 0.75*max) {
@@ -13,11 +14,20 @@ class Data {
         this.value = value;
         this.error = error;
         this.limit = limit;
+        this.omittedValues = 0;
     }
     change(value, error){
-        if (value != '' && value != ' ' && value != '\n') this.value = value;
-        if(value > this.max || value < this.min) this.error = String(value)
-        else this.error = error;
+        if (value != '' && value != ' ' && value != '\n') {  // value is not empty
+            this.value = value;
+            this.omittedValues = 0;
+            if(value > this.max || value < this.min) this.error = String(value)
+            else this.error = error;
+        }
+        else {  // empty value
+            this.omittedValues += 1;
+            if (this.omittedValues > maxOmittedValues) { this.value = ''; this.omittedValues = 0; this.error = 'Lost Value'}
+        }
+        
     }
 }
 
