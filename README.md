@@ -20,11 +20,13 @@ To run the visualization follow the steps below:
 This repository uses HTML, CSS , JavaScript and a JS library called roundSlider,
 which is explained further below.
 
-[Telemetry visualization](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/templates/telemetry.html)
+[Quick telemetry visualization demo simulation only](https://oceanos-visualization-demo.netlify.app/)
+
+[Telemetry visualization code](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/templates/telemetry.html)
 
 # roundSlider - A free jQuery plugin
 
 Link: https://github.com/soundar24/roundSlider.git
 
 You can run the demo for roundSlider: templates/demo.html
-[Demo](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/templates/demo.html)
+[Demo code](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/templates/demo.html)
