@@ -12,6 +12,7 @@ To run the visualization follow the steps below:
 4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
 5. Run in a terminal the `dummy_server.py` python file for the ngrok server
 6. Run `App.py` for the visualization 
+7. (Oprtional) If you want to run the program as a startup application (exactly after boot) you should copy the `.desktop` files which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in most Unix based systems) (and check that these files have execution permission)
 
 (If you only want to see the simulation modes, you can omit steps 4,5)
 

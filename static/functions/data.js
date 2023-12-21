@@ -17,7 +17,7 @@ class Data {
         this.omittedValues = 0;
     }
     change(value, error){
-        if (value != '' && value != ' ' && value != '\n') {  // value is not empty
+        if (String(value) != '' && String(value) != ' ' && String(value) != '\n') {  // value is not empty
             this.value = value;
             this.omittedValues = 0;
             if(value > this.max || value < this.min) this.error = String(value)
