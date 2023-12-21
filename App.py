@@ -9,7 +9,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-data_now = []  # Global variable to store the data we want to send to server and visualize
+data_now = {}  # Global variable to store the data we want to send to server and visualize
 
 def send_messages(server_socket):
     global data_now
