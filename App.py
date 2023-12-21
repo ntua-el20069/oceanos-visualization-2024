@@ -1,6 +1,6 @@
 
 from flask import Flask, render_template, redirect, url_for, jsonify
-from threading import Thread, Lock
+from threading import Thread
 import socket
 import random
 import time
@@ -9,12 +9,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-
-## If you want to use Locks Ctrl+F     #LOCK#      and change appropriately the code blocks there
-
-#LOCK#lock = Lock()  # Create a lock object
-
-data_now = []  # Global variable to store the time value
+data_now = []  # Global variable to store the data we want to send to server and visualize
 
 def send_messages(server_socket):
     global data_now
@@ -29,12 +24,6 @@ def send_messages(server_socket):
         # ftiaxnw dianysma me tis times apo thn teleytaia seira tou arxeiou
         
         ######## Random Index for Demo
-
-        #start = 0  # Replace with your desired start index
-        #end = len(data) - 1  # Replace with your desired end index
-
-        #  random integer between start and end
-        
         counter = ( counter + 1 ) % len(data) #random.randint(start, end)
         random_i = counter
         #######
@@ -68,26 +57,21 @@ def send_messages(server_socket):
         charge = str(data1[20])
         battery_temperature = str(data1[21])
         
-        #LOCK#with lock:
+        ### Update global time
         data_now = {"current_time": current_time,"latitude": lat, "longitude": longt,"speed": speed, "miles": miles, "miles_lap": miles_lap, "rtc": rtc,"millis": millis,"rpm": rpm,"input_voltage": input_voltage,"motor_watt":motor_watt,"motor_tempMosfet": motor_tempMosfet,"motor_tempMotor": motor_tempMotor,"motor_current":motor_current,"battery_current":battery_current,"motor_dutyCycle":motor_dutyCycle,"motor_error":motor_error, "rasp_temp": rasp_temp, "battery_ampere": battery_ampere, "battery_voltage": battery_voltage, "charge": charge, "battery_temperature": battery_temperature}
+
         message = str(data_now)
         #stelnoyme to mnm ston server
         server_socket.sendall(message.encode())
-        ### Update global time
-            
-
+        
 @app.route('/')
 def home():
     return render_template('telemetry.html') 
 
 @app.route('/reload')
-def reload():
-    #LOCK#with lock:    
+def reload():   
     global data_now
-    #print(data_now)
     return jsonify(data_now)  
-
-
 
 if __name__ == '__main__':
 
