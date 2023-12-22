@@ -1,6 +1,8 @@
 [Desktop Entry]
 Type=Application
 Exec=bash -c 'sleep 5 && firefox http://localhost:5000/'
+# use instead the following line if in rasberry py (ensure you have installed xterm - else try only the instruction inside )
+# Exec=bash -c 'sleep 5 && chromium-browser http://localhost:5000/'
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

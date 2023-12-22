@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=xterm -hold -e "bash -c 'sleep 2 && cd /home/nikolaospapa3/Documents/Oceanos/Telemetry/oceanos-visualization-2024 && python3 restart/restart_server.py'"
+Exec=xterm -hold -e "bash -c 'sleep 1 && cd /home/nikolaospapa3/Documents/Oceanos/Telemetry/oceanos-visualization-2024 && python3 restart/restart_server.py'"
 Terminal=true
 Hidden=false
 NoDisplay=false
