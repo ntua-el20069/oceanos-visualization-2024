@@ -19,7 +19,7 @@ def send_messages(server_socket):
         time.sleep(0.5)
         # diabazw to arxeio
         
-        csv_url = 'static/csv/data.csv' 
+        csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### change with the path of the CSV you want to visualize Live (Normal Mode)
         data = pd.read_csv(csv_url, delimiter=',')
         # ftiaxnw dianysma me tis times apo thn teleytaia seira tou arxeiou
         
@@ -57,21 +57,29 @@ def send_messages(server_socket):
         charge = str(data1[20])
         battery_temperature = str(data1[21])
         
-        ### Update global time
+        ### Update global data_now
         data_now = {"current_time": current_time,"latitude": lat, "longitude": longt,"speed": speed, "miles": miles, "miles_lap": miles_lap, "rtc": rtc,"millis": millis,"rpm": rpm,"input_voltage": input_voltage,"motor_watt":motor_watt,"motor_tempMosfet": motor_tempMosfet,"motor_tempMotor": motor_tempMotor,"motor_current":motor_current,"battery_current":battery_current,"motor_dutyCycle":motor_dutyCycle,"motor_error":motor_error, "rasp_temp": rasp_temp, "battery_ampere": battery_ampere, "battery_voltage": battery_voltage, "charge": charge, "battery_temperature": battery_temperature}
 
         message = str(data_now)
         #stelnoyme to mnm ston server
         server_socket.sendall(message.encode())
         
-@app.route('/')
+@app.route('/')  # basic web route
 def home():
     return render_template('telemetry.html') 
 
-@app.route('/reload')
+@app.route('/reload') # reload data, update visualization (a JavaScript function fetches this JSON data every 1 sec)
 def reload():   
     global data_now
     return jsonify(data_now)  
+
+@app.route('/example') # example about how fetch & reload works
+def example():
+    return render_template('example.html')
+
+@app.route('/roundSlider') # roundSlider demo for different types of circular inputs
+def roundSlider():
+    return render_template('demo.html')
 
 if __name__ == '__main__':
 

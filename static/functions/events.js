@@ -23,8 +23,8 @@ finalFetch(csvURL);
 // if you want to chack data from rows  a (start)-> b (end)
 // set     start = a,    and    samples = b-a 
 // this is used to use data from rows 1000 - 2000
-let start = 1000;      
-let samples = 1000;
+let start = 200;      
+let samples = 300;
 let counter = 0;
 
 setInterval(function() {
