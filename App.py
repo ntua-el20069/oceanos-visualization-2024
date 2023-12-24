@@ -34,6 +34,7 @@ def send_messages(server_socket):
 
         #print(str(data1.size)+"---------------------------------------------------")
         # bazw se ka8e metablhth thn antistoixh timh apo to panw dianusma se morfh str gia na emfanizetai sthn o8onh swsta
+        ''' # bad code ...
         current_time = str(data1[0])
         lat = str(data1[1])
         longt = str(data1[2])
@@ -60,6 +61,13 @@ def send_messages(server_socket):
         ### Update global data_now
         data_now = {"current_time": current_time,"latitude": lat, "longitude": longt,"speed": speed, "miles": miles, "miles_lap": miles_lap, "rtc": rtc,"millis": millis,"rpm": rpm,"input_voltage": input_voltage,"motor_watt":motor_watt,"motor_tempMosfet": motor_tempMosfet,"motor_tempMotor": motor_tempMotor,"motor_current":motor_current,"battery_current":battery_current,"motor_dutyCycle":motor_dutyCycle,"motor_error":motor_error, "rasp_temp": rasp_temp, "battery_ampere": battery_ampere, "battery_voltage": battery_voltage, "charge": charge, "battery_temperature": battery_temperature}
 
+        '''
+
+        
+        fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
+        ### Update global data_now
+        data_now = {label : str(x) for label, x in zip(fieldnames, data1)}        
+       
         message = str(data_now)
         #stelnoyme to mnm ston server
         server_socket.sendall(message.encode())
