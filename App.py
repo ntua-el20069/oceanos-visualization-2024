@@ -11,15 +11,17 @@ app = Flask(__name__)
 
 data_now = {}  # Global variable to store the data we want to send to server and visualize
 
+fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
+
 def send_messages(server_socket):
     global data_now
     counter = 10
     while True:
         # 8ewroume mia ka8ysterhsh, an den mas aresei thn allazoyme
-        time.sleep(0.5)
+        time.sleep(0.5)        # CHANGE (delay of taking data from CSV)
         # diabazw to arxeio
         
-        csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### change with the path of the CSV you want to visualize Live (Normal Mode)
+        csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode)
         data = pd.read_csv(csv_url, delimiter=',')
         # ftiaxnw dianysma me tis times apo thn teleytaia seira tou arxeiou
         
@@ -62,10 +64,8 @@ def send_messages(server_socket):
         data_now = {"current_time": current_time,"latitude": lat, "longitude": longt,"speed": speed, "miles": miles, "miles_lap": miles_lap, "rtc": rtc,"millis": millis,"rpm": rpm,"input_voltage": input_voltage,"motor_watt":motor_watt,"motor_tempMosfet": motor_tempMosfet,"motor_tempMotor": motor_tempMotor,"motor_current":motor_current,"battery_current":battery_current,"motor_dutyCycle":motor_dutyCycle,"motor_error":motor_error, "rasp_temp": rasp_temp, "battery_ampere": battery_ampere, "battery_voltage": battery_voltage, "charge": charge, "battery_temperature": battery_temperature}
 
         '''
-
         
-        fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
-        ### Update global data_now
+         ### Update global data_now
         data_now = {label : str(x) for label, x in zip(fieldnames, data1)}        
        
         message = str(data_now)
