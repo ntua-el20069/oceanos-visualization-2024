@@ -36,10 +36,10 @@ To run the visualization follow the steps below:
 
 1. `App.py`: Ctrl + F : `CHANGE` to see how to change csv that is read, reading of last line of the csv, change the period in which csv lines are read and sent to the server.
 2. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/csv)   
-3. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/functions): 
-        - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. 
-        - You can add a new data visualization by adding a data in lists `datalist` or `numericData` in `data.js` (check the class definition of `Data`). 
-        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/dist/roundslider.js)
+3. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/functions): <br>
+        - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
+        - You can add a new data visualization by adding a data in lists `datalist` or `numericData` in `data.js` (check the class definition of `Data`). <br>
+        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/dist/roundslider.js) <br>
 
 This repository uses HTML, CSS , JavaScript and a JS library called roundSlider,
 which is explained further below.
