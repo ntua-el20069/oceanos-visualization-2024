@@ -13,7 +13,7 @@ function reloadPage() {
     });
 }
 
-function finalFetch(csvURL){
+function finalFetch(csvURL){        // fetch Simulation CSV
     fetchAndParseCSV(csvURL)
     .then(dataSet => {
         if (dataSet) {

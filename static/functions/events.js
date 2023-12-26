@@ -16,13 +16,11 @@ function changeSimulate(modeInput){
 
 const fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
 
-finalFetch(csvURL);
-// Use the parsed data as needed
-// Basic Operation
+finalFetch(csvURL); // fetch Simulation Data
 
 // if you want to chack data from rows  a (start)-> b (end)
 // set     start = a,    and    samples = b-a 
-// this is used to use data from rows 1000 - 2000
+
 let start = 2;      
 let samples = 300;
 let counter = 0;
