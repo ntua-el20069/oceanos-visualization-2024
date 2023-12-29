@@ -21,6 +21,7 @@ for (data of numericData.concat(datalist)){
     if (numericData.includes(data)){
         
         let pElement = document.createElement('p');
+        pElement.classList.add('numeric');
         pElement.id = data.id;
         pElement.textContent = data.value;
 

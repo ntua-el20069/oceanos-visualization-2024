@@ -40,6 +40,8 @@ To run the visualization follow the steps below:
         - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
         - You can add a new data visualization by adding a data in lists `datalist` or `numericData` in `data.js` (check the class definition of `Data`). <br>
         - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/dist/roundslider.js) <br>
+4. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/styles/styles.css) <br>
+        - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
 This repository uses HTML, CSS , JavaScript and a JS library called roundSlider,
 which is explained further below.

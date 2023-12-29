@@ -38,6 +38,7 @@ datalist = [                        // CAUTION!  The data.id should match the fi
     new Data("motor_tempMosfet", "Mosfet Temperature (°C)", 90) , 
     new Data("motor_current", "Motor Current (A)", 250) , 
     new Data("motor_tempMotor", "Motor Temperature (°C)", 75) 
+    //, new Data("input_voltage", "Input Voltage (V)")
 ]
 
 numericData = [                     // CAUTION!  The data.id should match the fieldname from fieldnames list
@@ -45,4 +46,5 @@ numericData = [                     // CAUTION!  The data.id should match the fi
    new Data('miles', 'Miles (miles)'),
    new Data('miles_lap', 'Miles per Lap (miles)'),
    new Data('rpm', 'RPM (rpm)')
+   //, new Data('millis', 'Millis ')
 ]
