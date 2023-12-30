@@ -15,6 +15,7 @@ function display(){
                 step: data.step,
                 readOnly: true,
                 rangeColor: color,
+                radius: 100
             });
         }
         for (data of numericData) document.querySelector(`#${data.id}`).textContent = data.value;

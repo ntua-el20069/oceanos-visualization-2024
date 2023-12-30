@@ -5,7 +5,7 @@ let color = regular_color;
 const maxOmittedValues = 15;
 
 class Data {
-    constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2, error = noError, limit = 0.25*min + 0.75*max) {
+    constructor(id, definition,  max = 100, min = 0, step = 0.1, value = (min + max) / 2, error = noError, limit = 0.25*min + 0.75*max) { // default initializations
         this.id = id;
         this.definition = definition;
         this.max = max;
@@ -25,7 +25,7 @@ class Data {
         }
         else {  // empty value
             this.omittedValues += 1;
-            if (this.omittedValues > maxOmittedValues) { this.value = ''; this.omittedValues = 0; this.error = 'Lost Value'}
+            if (this.omittedValues > maxOmittedValues) { this.value = ''; this.omittedValues = 0; this.error = 'Lost Value'} // if you have lost 15 data continuously, show Lost value
         }
         
     }
@@ -42,9 +42,10 @@ datalist = [                        // CAUTION!  The data.id should match the fi
 ]
 
 numericData = [                     // CAUTION!  The data.id should match the fieldname from fieldnames list
-   new Data('autonomy', 'Autonomy'),
-   new Data('miles', 'Miles (miles)'),
-   new Data('miles_lap', 'Miles per Lap (miles)'),
-   new Data('rpm', 'RPM (rpm)')
-   //, new Data('millis', 'Millis ')
+   new Data('autonomy', 'Autonomy', Infinity),
+   new Data('miles', 'Miles (miles)', Infinity),
+   new Data('miles_lap', 'Miles per Lap (miles)', Infinity),
+   new Data('rpm', 'RPM (rpm)', Infinity)
+   //, new Data('millis', 'Millis', Infinity)
 ]
+
