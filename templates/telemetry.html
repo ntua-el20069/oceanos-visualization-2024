@@ -24,10 +24,13 @@
     </head>
 
     <body> 
-        <div>
+        <div id="titles">
             <h2 id="mode" style="display: inline-block;">Normal Mode</h2> 
+            <h2 id="timeLabel" class="time">Time: </h2>
+            <h2 id="time" class="time" ></h2>
             <h3 style="color: red; display: inline-block;"> For Normal Mode you should run NGROK Server </h3> <br>
-
+        </div>
+        <div id="buttons">
             <button class="switchMode" onclick="changeSimulate('Normal')"> Switch to Normal Mode </button>
             <button class="switchMode" onclick="changeSimulate('Simulation')"> Switch to Simulation Mode </button>
             <button class="switchMode" onclick="changeSimulate('Simulate csv')"> Switch to Simulate csv Mode </button>

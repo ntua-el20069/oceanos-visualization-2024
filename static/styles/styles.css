@@ -5,6 +5,18 @@
 h1 span {
     font-size: 0.6em;
 }
+
+#titles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.time {
+    color: rgb(1, 1, 138); 
+    display: inline-block;
+}
+
 .grid-container {
     display: flex;
     flex-wrap: wrap;

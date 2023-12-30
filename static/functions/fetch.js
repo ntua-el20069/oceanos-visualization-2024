@@ -6,6 +6,7 @@ function reloadPage() {
         for (data of datalist.concat(numericData)) {
             data.change(parseFloat(jsonData[data.id]), noError);
         }
+        document.querySelector('#time').textContent = jsonData['current_time'];
         display();
     })
     .catch(error => {

@@ -1,4 +1,5 @@
 function generateRandomFloat(min, max, step) {  // for Simulation
+    if (max==Infinity) max = 1000000;
     var randomNumber = Math.random() * (max - min) + min;
     if (step >= 0.1) return Math.round(randomNumber * 10) / 10;
     else if (step >= 0.01) return Math.round(randomNumber * 100) / 100;

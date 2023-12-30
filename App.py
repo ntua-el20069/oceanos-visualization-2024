@@ -6,12 +6,21 @@ import random
 import time
 import pandas as pd
 import numpy as np
+from requestsAPI.send import send_website
+from requestsAPI.readline import readline
+
+mode = 'local' # mode is 'local' or 'web' depending on if we want to run the script in our local computer or in pythonanywhere
 
 app = Flask(__name__)
 
 data_now = {}  # Global variable to store the data we want to send to server and visualize
 
 fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
+
+csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode)
+
+host_write_csv_path = 'hostdata.csv'
+host_read_csv_path = 'static/csv/hostdata.csv'
 
 def send_messages(server_socket):
     global data_now
@@ -21,7 +30,7 @@ def send_messages(server_socket):
         time.sleep(0.5)        # CHANGE (delay of taking data from CSV)
         # diabazw to arxeio
         
-        csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode)
+        
         data = pd.read_csv(csv_url, delimiter=',')
         # ftiaxnw dianysma me tis times apo thn teleytaia seira tou arxeiou
         
@@ -31,7 +40,7 @@ def send_messages(server_socket):
         #######
 
         data1 = np.array(data.iloc[random_i].values)    #### CHANGE !!!!! random_i to -1 for real time last data
-
+        
         #######
 
         #print(str(data1.size)+"---------------------------------------------------")
@@ -68,6 +77,8 @@ def send_messages(server_socket):
          ### Update global data_now
         data_now = {label : str(x) for label, x in zip(fieldnames, data1)}        
        
+        send_website(data_now, host_write_csv_path)
+
         message = str(data_now)
         #stelnoyme to mnm ston server
         server_socket.sendall(message.encode())
@@ -79,7 +90,10 @@ def home():
 @app.route('/reload') # reload data, update visualization (a JavaScript function fetches this JSON data every 1 sec)
 def reload():   
     global data_now
-    return jsonify(data_now)  
+    if mode == 'local':
+        return jsonify(data_now)
+    else: # 'web' mode
+        return jsonify(readline(host_read_csv_path, fieldnames))  
 
 @app.route('/example') # example about how fetch & reload works
 def example():

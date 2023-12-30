@@ -36,9 +36,11 @@ setInterval(function() {
             if (Math.random() < 0.3) error = 'Error!';  // error with probability 0.3 
             if(mode=='Simulation'){
                 data.change(randomFloat, error);
+                document.querySelector('#time').textContent = '';
             }
-            else {
+            else { // Simulate CSV
                 data.change(localDataSet[start + counter][data.id], noError);
+                document.querySelector('#time').textContent = localDataSet[start + counter]['current_time']
             }
 
         }
