@@ -32,6 +32,7 @@ id = 31697413
 
 red = "\033[31m"
 blue = "\033[34m"
+yellow = "\033[33m"
 reset_color = "\033[0m"
 
 def send_messages(server_socket):
@@ -76,6 +77,7 @@ def home():
 
 @app.route('/reload') # reload data, update visualization (a JavaScript function fetches this JSON data every 1 sec)
 def reload():  
+    print(f"{yellow}Javascript Reload{reset_color}")
     global data_now
     if mode == 'local':
         return jsonify(data_now)

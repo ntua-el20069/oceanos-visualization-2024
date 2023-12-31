@@ -18,19 +18,30 @@ with open('{csv_name}','a',encoding='utf-8') as csvFile:
     console_log = {'input' : f'{bash_script}\n'}
 
     start = time.time()
-    
-    response = requests.post(
+
+    try: 
+        response = requests.post(
         f'https://www.pythonanywhere.com/api/v0/user/{username}/consoles/{id}/send_input/',
         headers={'Authorization': f'Token {token}'},
-        json=console_log   
-    ) 
+        json=console_log ,
+        timeout=1
+        )
+        response.raise_for_status() 
+        end = time.time()
 
-    end = time.time()
+        response_text = response.content.decode('utf-8')
+        
+        print(f'{green} HTTP POST {reset_color} Request Response: (Time consumed: {green} {(end-start):.3f} seconds {reset_color})')
+        print(f"{green}{response_text}{reset_color}")
+    
+    except requests.exceptions.ConnectTimeout as err:
+        print(f"{red}Connection timeout occurred: {err}{reset_color}")
+    except requests.exceptions.Timeout as err:
+        print(f"{red}Request timed out: {err}{reset_color}")
+    except requests.exceptions.RequestException as e:
+        print(f"{red}Request error: {e}{reset_color}")
 
-    response_text = response.content.decode('utf-8')
-    color = green if "OK" in response_text else red
-    print(f'{color} HTTP POST {reset_color} Request Response: (Time consumed: {color} {(end-start):.3f} seconds {reset_color})')
-    print(f"{color}{response_text}{reset_color}")
+    
     
     
     
