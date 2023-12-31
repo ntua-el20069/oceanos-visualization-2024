@@ -55,7 +55,7 @@ To run the visualization follow the steps below:
 1. In pythonanywhere account, delete the folder `/home/oceanosntua/oceanos-visualization-2024`
 2. Open a bash console in Python and type `cd /home/oceanosntua/`
 3. Git clone the repo: `git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git`
-4. Enter the repo directory: `cd oceanos-visualization-2024/` and switch to branch dev: `git checkout web`
+4. Enter the repo directory: `cd oceanos-visualization-2024/` and switch to branch web: `git checkout web`
 5. In pythonanywhere file `/home/oceanosntua/oceanos-visualization-2024/App.py`: set `mode` to the value 'web' instead of 'local'
 6. Start a bash console in pythonanywhere, and type `cd /home/oceanosntua/oceanos-visualization-2024/static/csv`
 7. Take the id of that console (ensure that this console will not close)
