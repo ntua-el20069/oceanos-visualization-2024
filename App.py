@@ -6,7 +6,6 @@ import random
 import time
 import pandas as pd
 import numpy as np
-import asyncio
 from requestsAPI.send import send_website
 from requestsAPI.readline import readline
 from requestsAPI.account import account_info
