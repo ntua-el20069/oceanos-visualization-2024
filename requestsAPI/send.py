@@ -1,14 +1,12 @@
 import requests
-import json
-import os
-from requestsAPI.account import account_info
-import aiohttp
+import time
 
-username, token, path = account_info()
-id = 31692730
+green = "\033[32m"
+red = "\033[31m"
+# Reset ANSI escape code for default text color
+reset_color = "\033[0m"
 
-
-async def send_website(data_now: dict, csv_name: str):
+def send_website(data_now: dict, csv_name: str, username, token, id):
     separator = ','
     csv_line = separator.join(list(data_now.values())).replace('nan','')
     python_script = f'''
@@ -19,14 +17,20 @@ with open('{csv_name}','a',encoding='utf-8') as csvFile:
     #console_log = {'input' : f'python\n{python_script}\nexit()\n'}
     console_log = {'input' : f'{bash_script}\n'}
 
-    async with aiohttp.ClientSession() as session:
-        response = requests.post(
-            f'https://www.pythonanywhere.com/api/v0/user/{username}/consoles/{id}/send_input/',
-            headers={'Authorization': f'Token {token}'},
-            json=console_log   
-        )
+    start = time.time()
+    
+    response = requests.post(
+        f'https://www.pythonanywhere.com/api/v0/user/{username}/consoles/{id}/send_input/',
+        headers={'Authorization': f'Token {token}'},
+        json=console_log   
+    ) 
 
-        print('Request Response:')
-        response_text = response.content.decode('utf-8')
-        print(response_text)
+    end = time.time()
+
+    response_text = response.content.decode('utf-8')
+    color = green if "OK" in response_text else red
+    print(f'{color} HTTP POST {reset_color} Request Response: (Time consumed: {color} {(end-start):.3f} seconds {reset_color})')
+    print(f"{color}{response_text}{reset_color}")
+    
+    
     

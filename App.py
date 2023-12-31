@@ -9,8 +9,12 @@ import numpy as np
 import asyncio
 from requestsAPI.send import send_website
 from requestsAPI.readline import readline
+from requestsAPI.account import account_info
 
-mode = 'local' # mode is 'local' or 'web' depending on if we want to run the script in our local computer or in pythonanywhere
+mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to run the script in our local computer or in host (pythonanywhere)
+
+send_to_server = True  # CHANGE ! server is the computer in which we run server python code (receive messages via TCP)
+send_to_host = True   # CHANGE ! host is the website (pythonanywhere) in which data are sent with HTTP POST request
 
 app = Flask(__name__)
 
@@ -23,12 +27,19 @@ csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the p
 host_write_csv_path = 'hostdata.csv'
 host_read_csv_path = f'/home/oceanosntua/oceanos-visualization-2024/static/csv/{host_write_csv_path}'
 
+username, token, path = account_info()
+id = 31697413
+
+red = "\033[31m"
+blue = "\033[34m"
+reset_color = "\033[0m"
+
 def send_messages(server_socket):
     global data_now
     counter = 10
     while True:
         # 8ewroume mia ka8ysterhsh, an den mas aresei thn allazoyme
-        time.sleep(0.5)        # CHANGE (delay of taking data from CSV)
+        #time.sleep(0.5)        # CHANGE (delay of taking data from CSV)
         data = pd.read_csv(csv_url, delimiter=',')  # diabazw to arxeio
         ######## Random Index for Demo
         counter = ( counter + 1 ) % len(data) #random.randint(start, end)
@@ -41,14 +52,22 @@ def send_messages(server_socket):
         # bazw se ka8e metablhth thn antistoixh timh apo to panw dianusma se morfh str gia na emfanizetai sthn o8onh swsta
         ### Update global data_now
         data_now = {label : str(x) for label, x in zip(fieldnames, data1)}        
-
-        asyncio.run(send_website(data_now, host_write_csv_path))
+        #before = time.time()
+        if send_to_host:
+            send_website(data_now, host_write_csv_path, username, token, id)
         #print(data_now)
+        #after = time.time()
+        #print(f'{blue}Pseudo Time: {(after - before):.3f} seconds {reset_color})')
 
         message = str(data_now)
-        
-        #stelnoyme to mnm ston server
-        server_socket.sendall(message.encode())
+
+        if send_to_server:
+            #stelnoyme to mnm ston server
+            start = time.time()
+            server_socket.sendall(message.encode())
+            end = time.time()
+            print(f'Send message to server via {blue} TCP {reset_color}(Time consumed: {blue} {(end-start):.3f} seconds {reset_color})')
+
         
         
 @app.route('/')  # basic web route
@@ -79,19 +98,21 @@ if __name__ == '__main__':
     # Connect to the server using the TCP tunnel URL
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
-    server_socket.connect(('8.tcp.eu.ngrok.io', 20375))
-    # Receive the welcome message from the server
-    data = server_socket.recv(1024)
-    print(data.decode())
-    print("Connected to the server.")
-    # Start separate threads for sending and receiving messages
-    #send_thread = Thread(target=send_messages, args=(server_socket,))
-    #send_thread.start()
+    if send_to_server:
+        server_socket.connect(('8.tcp.eu.ngrok.io', 20375))
+        # Receive the welcome message from the server
+        data = server_socket.recv(1024)
+        print(data.decode())
+        print("Connected to the server.")
+        # Start separate threads for sending and receiving messages
+        #send_thread = Thread(target=send_messages, args=(server_socket,))
+        #send_thread.start()
     
     # Start separate thread for visualization
     web_thread = Thread(target=visualization, args=())
     web_thread.start()
 
+    
     # Execute send_messages in main program
     send_messages(server_socket)
     
