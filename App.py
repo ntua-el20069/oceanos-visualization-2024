@@ -13,7 +13,7 @@ from requestsAPI.account import account_info
 
 mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to run the script in our local computer or in host (pythonanywhere)
 
-send_to_server = True  # CHANGE ! server is the computer in which we run server python code (receive messages via TCP)
+send_to_server = False  # CHANGE ! server is the computer in which we run server python code (receive messages via TCP)
 send_to_host = True   # CHANGE ! host is the website (pythonanywhere) in which data are sent with HTTP POST request
 
 app = Flask(__name__)
@@ -28,7 +28,7 @@ host_write_csv_path = 'hostdata.csv'
 host_read_csv_path = f'/home/oceanosntua/oceanos-visualization-2024/static/csv/{host_write_csv_path}'
 
 username, token, path = account_info()
-id = 31697413
+console_id = 31697413 # console_id  of  pythonanywhere (HOST)
 
 red = "\033[31m"
 blue = "\033[34m"
@@ -40,7 +40,8 @@ def send_messages(server_socket):
     counter = 10
     while True:
         # 8ewroume mia ka8ysterhsh, an den mas aresei thn allazoyme
-        #time.sleep(0.5)        # CHANGE (delay of taking data from CSV)
+        if not send_to_host:
+            time.sleep(0.5)        # CHANGE (delay of taking data from CSV)
         data = pd.read_csv(csv_url, delimiter=',')  # diabazw to arxeio
         ######## Random Index for Demo
         counter = ( counter + 1 ) % len(data) #random.randint(start, end)
@@ -55,7 +56,7 @@ def send_messages(server_socket):
         data_now = {label : str(x) for label, x in zip(fieldnames, data1)}        
         #before = time.time()
         if send_to_host:
-            send_website(data_now, host_write_csv_path, username, token, id)
+            send_website(data_now, host_write_csv_path, username, token, console_id)
         #print(data_now)
         #after = time.time()
         #print(f'{blue}Pseudo Time: {(after - before):.3f} seconds {reset_color})')

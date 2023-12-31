@@ -45,7 +45,7 @@ To run the visualization follow the steps below:
         - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
 
-# Code for Web Host (Beta) 
+# Basic Understanding of Code for Web Host (Beta) 
 
 1. `App.py`: Ctrl + F : `CHANGE` , modify variables so as to select if you want to send to web-host (pythonanywhere) or server (e.g. your computer running server python code) or both. (If you do not send to server, you do not need to run ngrok and server code !)
 2. `requestsAPI`: in this folder `readline.py` is used for reading last line of csv in HOST, whereas `send.py` is used to send the current data to the HOST by writing them as the last line of a CSV file in HOST (this is done by an HTTP request to the  API of pythonanywhere console to write a bash command).
@@ -59,8 +59,9 @@ To run the visualization follow the steps below:
 5. In pythonanywhere file `/home/oceanosntua/oceanos-visualization-2024/App.py`: set `mode` to the value 'web' instead of 'local'
 6. Start a bash console in pythonanywhere, and type `cd oceanos-visualization-2024/static/csv`
 7. Take the id of that console (ensure that this console will not close)
-8. In your <strong>local</strong> code, set `id` (which is the variable for the console_id) with the id of the console you opened above
+8. In your <strong>local</strong> `App.py`, set `console_id` to the id of the console you opened above
 9. Reload the website, and it is ready.
+10. Run the <strong>local</strong> `App.py` to see changes in the Normal mode visualization (check Local visualization test & Basic Understanding of Code for Web Host).
 
 
 
