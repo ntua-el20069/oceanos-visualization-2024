@@ -13,7 +13,8 @@ def send_website(data_now: dict, csv_name: str, username, token, id):
 with open('{csv_name}','a',encoding='utf-8') as csvFile:
     print("{csv_line}", file=csvFile)         
 '''
-    bash_script = f'''echo "{csv_line}" >> "{csv_name}" '''
+    bash_script = f'''echo "{csv_line}" >>  "{csv_name}" '''
+    if int(time.time()) % 10 == 1: bash_script += '''\n      cd    ~/oceanos-visualization-2024/static/csv/'''
     #console_log = {'input' : f'python\n{python_script}\nexit()\n'}
     console_log = {'input' : f'{bash_script}\n'}
 
