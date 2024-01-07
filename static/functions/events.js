@@ -5,9 +5,9 @@ let modeText = '';
 function changeSimulate(modeInput){
     mode = modeInput; 
      switch (mode){
-        case 'Normal': modeText = "Normal Mode"; break;
+        case 'Normal': modeText = "Normal"; break;
         case 'Simulation': modeText = "Simulation"; break;
-        case 'Simulate csv': modeText = "Simulate CSV"; break;
+        case 'Simulate csv': modeText = "CSV"; break;
         case 'Static': modeText = 'Static Mode'
     }
     
@@ -37,7 +37,7 @@ setInterval(function() {
             if(mode=='Simulation'){
                 data.change(randomFloat, error);
                 document.querySelector('#time').textContent = '';
-                let motor_error = `We appreciate Indian support`;
+                let motor_error = `We appreciate Indian`;
                 if(Math.random() < 0.5) motor_error = '';
                 document.querySelector('#motorError').textContent = motor_error;
             }
