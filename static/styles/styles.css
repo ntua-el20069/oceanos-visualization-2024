@@ -2,6 +2,9 @@
     --textSize: 2em;      /* CHANGE ! text Size for visualization  */
 }
 
+
+
+
 h1 span {
     font-size: 0.6em;
 }
@@ -24,14 +27,13 @@ h1 span {
 }
 .visualization {
   display: inline-block;
-  padding: 5px 20px;
+  padding: 5px 15px;
   border: 1px dotted;
-  margin-right: 2%;
   overflow: hidden;
 
-flex: 0 0 18%;
+  flex: 0 0 calc(22% - 2%);
 /*  width: calc(33.3% - 10px);  /* Adjust width or use percentages */
-margin-bottom: 1%; /* Optional margin */
+margin-bottom: 0.4%; /* Optional margin */
 background-color: #f0f0f0; /* Just for visualization */
 text-align: center; /* Optional */
 
@@ -51,7 +53,7 @@ text-align: center; /* Optional */
   float: middle;
 }*/
 .control {
-    margin-right: 20px;
+    margin-right: 0px;
     
 }
 
@@ -70,7 +72,21 @@ output { /* for errors */
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 476px) and (max-width: 768px) { /* 768px for mobile phones */
+    .visualization {
+        flex: 0 0 calc(45% - 2%); /* Show 2 containers in each row for mobile */
+        margin-right: 0; /* No right margin */
+    }
+    .container{
+        height: 58px;
+    }
+    h2,
+    h3 {
+        margin: 0.1em 0em 0.5em;
+    }
+}
+
+@media screen and (max-width: 476px) {
     .visualization {
         flex: 0 0 100%; /* Full width for smaller screens */
         margin-right: 0; /* No right margin */

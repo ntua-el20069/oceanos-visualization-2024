@@ -6,8 +6,8 @@ function changeSimulate(modeInput){
     mode = modeInput; 
      switch (mode){
         case 'Normal': modeText = "Normal Mode"; break;
-        case 'Simulation': modeText = "Simulation Mode"; break;
-        case 'Simulate csv': modeText = "Simulate csv Mode"; break;
+        case 'Simulation': modeText = "Simulation"; break;
+        case 'Simulate csv': modeText = "Simulate CSV"; break;
         case 'Static': modeText = 'Static Mode'
     }
     
@@ -29,7 +29,7 @@ setInterval(function() {
     if (mode=='Simulate csv' || mode=='Simulation') {
         counter += 1;
         counter %= samples;
-        for (data of datalist.concat(numericData)) {
+        for (data of allData) {
         
             const randomFloat = generateRandomFloat(data.min, data.max, data.step);
             let error = noError;
@@ -37,10 +37,16 @@ setInterval(function() {
             if(mode=='Simulation'){
                 data.change(randomFloat, error);
                 document.querySelector('#time').textContent = '';
+                let motor_error = `We appreciate Indian support`;
+                if(Math.random() < 0.5) motor_error = '';
+                document.querySelector('#motorError').textContent = motor_error;
             }
             else { // Simulate CSV
                 data.change(localDataSet[start + counter][data.id], noError);
-                document.querySelector('#time').textContent = localDataSet[start + counter]['current_time']
+                document.querySelector('#time').textContent = localDataSet[start + counter]['current_time'];
+                let motor_error = localDataSet[start + counter]['motor_error'];
+                if(motor_error == '0')  motor_error = '';
+                document.querySelector('#motorError').textContent = motor_error;
             }
 
         }
@@ -53,5 +59,5 @@ setInterval(function() {
         reloadPage();
     }
          
-}, 1000); // Interval set to 1000ms (1 second)
+}, 1000); // Interval set to 1000ms (1 second) CHANGE
     

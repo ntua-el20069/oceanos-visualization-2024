@@ -26,19 +26,19 @@
     <body> 
         <div id="titles">
             <h2 id="mode" style="display: inline-block;">Normal Mode</h2> 
-            <h2 id="timeLabel" class="time">Time: </h2>
-            <h2 id="time" class="time" ></h2>
-            <h3 style="color: red; display: inline-block;"> For Normal Mode you should run NGROK Server </h3> <br>
+            <h2 id="timeLabel" class="time">Time: <strong id="time" class="time" ></strong></h2>
         </div>
         <div id="buttons">
-            <button class="switchMode" onclick="changeSimulate('Normal')"> Switch to Normal Mode </button>
-            <button class="switchMode" onclick="changeSimulate('Simulation')"> Switch to Simulation Mode </button>
-            <button class="switchMode" onclick="changeSimulate('Simulate csv')"> Switch to Simulate csv Mode </button>
-            <button class="switchMode" onclick="changeSimulate('Static')"> Switch to Static Mode </button>
+            Switch to Mode:
+            <button class="switchMode" onclick="changeSimulate('Normal')">  Normal </button>
+            <button class="switchMode" onclick="changeSimulate('Simulation')">  Simulation </button>
+            <button class="switchMode" onclick="changeSimulate('Simulate csv')"> Simulate csv  </button>
+            <button class="switchMode" onclick="changeSimulate('Static')"> Static </button>
         </div>
         <div class="grid-container">
             
         </div>
+        <h3 > Motor Error: <span id="motorError" style="color: red;"></span></h3>
     </body>
 
 </html>

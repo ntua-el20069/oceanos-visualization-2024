@@ -3,10 +3,13 @@ function reloadPage() {
     .then(response => response.json())
     .then(jsonData => {
         console.log(jsonData);
-        for (data of datalist.concat(numericData)) {
+        for (data of allData) {
             data.change(parseFloat(jsonData[data.id]), noError);
         }
         document.querySelector('#time').textContent = jsonData['current_time'];
+        let motor_error = jsonData['motor_error'];
+        if(motor_error == '0')  motor_error = '';
+        document.querySelector('#motorError').textContent = motor_error;
         display();
     })
     .catch(error => {

@@ -27,7 +27,7 @@ host_write_csv_path = 'hostdata.csv'
 host_read_csv_path = f'/home/oceanosntua/oceanos-visualization-2024/static/csv/{host_write_csv_path}'
 
 username, token, path = account_info()
-console_id = 31700465 # console_id  of  pythonanywhere (HOST)
+console_id = 31700465 # CHANGE ! console_id  of  pythonanywhere (HOST)
 
 red = "\033[31m"
 blue = "\033[34m"

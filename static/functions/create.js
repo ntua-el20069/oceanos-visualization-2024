@@ -1,6 +1,6 @@
 const parent = document.querySelector('.grid-container');
 
-for (data of numericData.concat(datalist)){
+for (data of allData){
     
     let dataDiv = document.createElement('div');
     dataDiv.classList.add('visualization');
@@ -18,7 +18,7 @@ for (data of numericData.concat(datalist)){
 
     dataDiv.appendChild(h3Element);
     
-    if (numericData.includes(data)){
+    if (!data.slider){
         
         let pElement = document.createElement('p');
         pElement.classList.add('numeric');
