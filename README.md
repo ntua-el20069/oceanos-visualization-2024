@@ -54,13 +54,13 @@ To run the visualization follow the steps below:
 # Deploy code in Web Host (Beta)
 
 1. In pythonanywhere account, delete the folder `/home/oceanosntua/oceanos-visualization-2024`
-2. Open a bash console in Python and type `cd /home/oceanosntua/`
+2. Write in bash console in Python (if there is open console, do not open new!) `cd /home/oceanosntua/`
 3. Git clone the repo: `git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git`
-4. Enter the repo directory: `cd oceanos-visualization-2024/` and switch to branch web: `git checkout web`
+4. Enter the repo directory: `cd oceanos-visualization-2024/`
 5. In pythonanywhere file `/home/oceanosntua/oceanos-visualization-2024/App.py`: set `mode` to the value 'web' instead of 'local'
 6. Start a bash console in pythonanywhere, and type `cd /home/oceanosntua/oceanos-visualization-2024/static/csv`
 7. Take the id of that console (ensure that this console will not close)
-8. In your <strong>local</strong> `App.py`, set `console_id` to the id of the console you opened above
+8. In your <strong>local</strong> `useful.py`, set `console_id` to the id of the console you opened above
 9. Reload the website from pythonanywhere reload button, and it is ready.
 10. Run the <strong>local</strong> `send_messages.py` to see changes in the Normal mode visualization (check `Basic Understanding of Code for Web Host`).
 11. Refresh the web page
