@@ -40,7 +40,7 @@ text-align: center; /* Optional */
 }
 .container {
     max-width: 100%; /* Container takes full width of the viewport */
-    padding: 0 20px; /* Add padding to the sides */
+    padding: 0 10px; /* Add padding to the sides */
     box-sizing: border-box; /* Include padding and border in the width */
     height: 100px;
     width: 400px;
@@ -79,7 +79,7 @@ output { /* for errors */
     }
     .container{
         height: 58px;
-        width: 300px;
+        width: 200px;
     }
     h2,
     h3 {
