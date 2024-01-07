@@ -17,3 +17,5 @@ while True:
 			subprocess.call(['python3', 'App.py'])
 			print("process restarted!") 
 			time.sleep(1)
+
+
