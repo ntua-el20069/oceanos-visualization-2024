@@ -5,6 +5,19 @@ such as Motor Temperature, Rounds per Minute of the Motor, that are required in
 the MEBC 2024. It is hosted on web, to visit follow the link below:
 [Oceanos Visualization Website](http://oceanosntua.pythonanywhere.com/)
 
+# Quick Changes in the Code 
+
+1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME`, change significant paths. 
+In addition, modify variables so as to select if you want to send to web-host (pythonanywhere) or server (e.g. your computer running server python code) or both. (If you do not send to server, you do not need to run ngrok and server code !). Finally you can change the `console_id` with the id of a pythonanywhere console that is open.
+2. `App.py`: Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'server' for the PC running server code
+3. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/csv)   
+4. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/functions): <br>
+        - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
+        - You can add a new data visualization by adding a data in lists `datalist` or `numericData` in `data.js` (check the class definition of `Data`). <br>
+        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/dist/roundslider.js) <br>
+5. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/styles/styles.css) <br>
+        - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
+
 # Local visualization test
 To run the visualization follow the steps below:
 
@@ -29,26 +42,14 @@ To run the visualization follow the steps below:
 
 # ToDos for Correct Visualization Check (ensure continuous visualization)
 
-1. Use the `restart` files in the `Exec` configuration of the `.desktop` files (`virtualization.desktop` and `firefox.desktop`)
+1. Use the `restart` files in the `Exec` configuration of the `.desktop` files (`ngrok.desktop` and `firefox.desktop`)
 2. Repeat the steps for the Raspberry Pi that will run in MEBC (`xterm` may not be installed there)
 3. Change code in `App.py` and `dummy_server.py` (or use `Final_server.py`) so as to read the last line of the CSV in which `gps_with_temp.py` writes.
 
-# Quick Changes in the Code 
-
-1. `App.py`: Ctrl + F : `CHANGE` to see how to change csv that is read, reading of last line of the csv, change the period in which csv lines are read and sent to the server.
-2. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/csv)   
-3. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/main/static/functions): <br>
-        - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
-        - You can add a new data visualization by adding a data in lists `datalist` or `numericData` in `data.js` (check the class definition of `Data`). <br>
-        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/dist/roundslider.js) <br>
-4. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/main/static/styles/styles.css) <br>
-        - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
-
-
 # Basic Understanding of Code for Web Host (Beta) 
 
-1. `App.py`: Ctrl + F : `CHANGE` , modify variables so as to select if you want to send to web-host (pythonanywhere) or server (e.g. your computer running server python code) or both. (If you do not send to server, you do not need to run ngrok and server code !)
-2. `requestsAPI`: in this folder `readline.py` is used for reading last line of csv in HOST, whereas `send.py` is used to send the current data to the HOST by writing them as the last line of a CSV file in HOST (this is done by an HTTP request to the  API of pythonanywhere console to write a bash command).
+1. `send_messages.py`: Local code that sends messages to HOST or/and Server 
+2. `requestsAPI`: in this folder `send.py` is used to send the current data to the HOST by writing them as the last line of a CSV file in HOST (this is done by an HTTP request to the  API of pythonanywhere console to write a bash command).
 
 # Deploy code in Web Host (Beta)
 
@@ -61,9 +62,8 @@ To run the visualization follow the steps below:
 7. Take the id of that console (ensure that this console will not close)
 8. In your <strong>local</strong> `App.py`, set `console_id` to the id of the console you opened above
 9. Reload the website from pythonanywhere reload button, and it is ready.
-10. Run the <strong>local</strong> application to see changes in the Normal mode visualization (check `Local visualization` test & `Basic Understanding of Code for Web Host`).
+10. Run the <strong>local</strong> `send_messages.py` to see changes in the Normal mode visualization (check `Basic Understanding of Code for Web Host`).
 11. Refresh the web page
-
 
 
 

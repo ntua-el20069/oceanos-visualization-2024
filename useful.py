@@ -21,6 +21,6 @@ send_to_server = True  # CHANGE ! server is the computer in which we run server 
 send_to_host = True   # CHANGE ! host is the website (pythonanywhere) in which data are sent with HTTP POST request
 
 if send_to_host: delay = 1      # Changing this will not help, because HTTP request takes approximately 1 sec to complete
-else : delay = 0.5              # CHANGE  (delay of taking data from CSV) (if we send the data only to the server)
+else : delay = 0.5              # (For reload time check JS files) I think it is not that important to CHANGE this (delay of taking data from CSV) (if we send the data ONLY to the server)
 
 REAL_TIME = False        #   CHANGE !   Set to True if you want to take Real Time Data (last line of CSV) , when False it just simulates the csv ...
