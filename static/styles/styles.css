@@ -72,7 +72,7 @@ output { /* for errors */
 
 
 
-@media screen and (min-width: 450px) and (max-width: 768px) { /* 768px for mobile phones */
+@media screen /*and (min-width: 450px)*/ and (max-width: 768px) { /* 768px for mobile phones */
     .visualization {
         flex: 0 0 calc(44% - 2%); /* Show 2 containers in each row for mobile */
         margin-right: 0; /* No right margin */
@@ -90,17 +90,18 @@ output { /* for errors */
     }
 }
 
-@media screen and (max-width: 450px) {
+/*@media screen and (max-width: 450px) {
     .visualization {
         flex: 0 0 100%; /* Full width for smaller screens */
-        margin-right: 0; /* No right margin */
-    }
+/*        margin-right: 0; /* No right margin */
+/*    }
     
     .container {
         width: 100%; /* Container takes full width of the viewport */
-    }
+/*    }
     
     .control {
         margin-right: 10px; /* Adjust margin */
-    }
+/*    }
 }
+*/
