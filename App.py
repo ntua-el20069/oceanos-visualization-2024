@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, redirect, url_for, jsonify
+from flask import Flask, render_template, redirect, url_for, jsonify, request
 from threading import Thread
 from helpers.readCSV import readCSV
 from useful import *
@@ -23,6 +23,19 @@ def reload():
     else: # 'web' mode
         return jsonify(readCSV(host_read_csv_path, fieldnames, realTime = True))  
 
+@app.route('/send-data', methods = ['POST'])
+def send_data():
+    try:
+        request_data = request.get_json()
+        separator = ','
+        csv_line = separator.join(list(request_data.values())).replace('nan','')
+        with open(host_read_csv_path,'a',encoding='utf-8') as csvFile:
+            print(f"{csv_line}", file=csvFile)     
+    except Exception as e:
+        return jsonify({"message" : f'Error: {e}'}), 400 
+    return jsonify({"message" : 'OK'}), 200    
+
+
 @app.route('/example') # example about how fetch & reload works
 def example():
     return render_template('example.html')
@@ -32,6 +45,7 @@ def roundSlider():
     return render_template('demo.html')
 
 def visualization():
+    # if we run this function, all devices in the same network (connected to the same router) can access the site via http://{local-IP}:5000/
     app.run(host='0.0.0.0', use_reloader=False, debug=True)
 
 if __name__ == '__main__':

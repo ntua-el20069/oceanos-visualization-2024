@@ -65,7 +65,15 @@ To run the visualization follow the steps below:
 10. Run the <strong>local</strong> `send_messages.py` (for about half a minute).
 11. Refresh the web page and you will see that data change in the Normal mode visualization!
 
-
+```bash
+rm -r /home/oceanosntua/oceanos-visualization-2024
+```
+```bash
+cd /home/oceanosntua/
+git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git
+cd oceanos-visualization-2024/
+vim App.py
+```
 
 This repository uses HTML, CSS , JavaScript and a JS library called roundSlider,
 which is explained further below.

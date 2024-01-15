@@ -1,3 +1,4 @@
+from flask import jsonify
 import requests
 import time
 
@@ -21,11 +22,16 @@ with open('{csv_name}','a',encoding='utf-8') as csvFile:
     start = time.time()
 
     try: 
-        response = requests.post(
+        '''response = requests.post(
         f'https://www.pythonanywhere.com/api/v0/user/{username}/consoles/{id}/send_input/',
         headers={'Authorization': f'Token {token}'},
         json=console_log ,
         timeout=1
+        )'''
+        response = requests.post(
+            'http://oceanosntua.pythonanywhere.com/send-data',
+            json=jsonify(data_now),
+            timeout=1
         )
         response.raise_for_status() 
         end = time.time()
