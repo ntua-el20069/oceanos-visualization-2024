@@ -61,6 +61,7 @@ To run the visualization follow the steps below:
 6. Reload the website from pythonanywhere reload button.
 7. Run the <strong>local</strong> `send_messages.py`.
 8. Refresh the web page and you will see that data change in the Normal mode visualization!
+9. (Optional) Before each of seatrials / MEBC race, download `/home/oceanosntua/hostdata.csv` in order to save it locally (and rename it!) and remove it from host folder because we want the next hostdata to refer to another race.
 
 Bash commands for 1-5 in pythonanywhere bash console.
 ```bash
