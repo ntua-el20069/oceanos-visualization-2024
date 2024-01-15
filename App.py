@@ -1,6 +1,5 @@
 
 from flask import Flask, render_template, redirect, url_for, jsonify, request
-from threading import Thread
 from helpers.readCSV import readCSV
 from useful import *
 

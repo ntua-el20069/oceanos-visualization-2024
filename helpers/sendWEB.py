@@ -1,4 +1,3 @@
-from flask import jsonify
 import requests
 import time
 
@@ -12,7 +11,7 @@ def send_website(data_now: dict):
     try: 
         response = requests.post(
             'http://oceanosntua.pythonanywhere.com/send-data',
-            json=jsonify(data_now),
+            json=data_now,
             timeout=1
         )
         response.raise_for_status() 

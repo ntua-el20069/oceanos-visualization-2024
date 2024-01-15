@@ -5,10 +5,10 @@ such as Motor Temperature, Rounds per Minute of the Motor, that are required in
 the MEBC 2024. It is hosted on web, to visit follow the link below:
 [Oceanos Visualization Website](http://oceanosntua.pythonanywhere.com/)
 
-# Quick Changes in the Code 
+## Quick Changes in the Code 
 
 1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME`, change significant paths. 
-In addition, modify variables so as to select if you want to send to web-host (pythonanywhere) or server (e.g. your computer running server python code) or both. (If you do not send to server, you do not need to run ngrok and server code !). Finally you can change the `console_id` with the id of a pythonanywhere console that is open.
+In addition, modify variables so as to select if you want to send to web-host (pythonanywhere) or server (e.g. your computer running server python code) or both. (If you do not send to server, you do not need to run ngrok and server code !). 
 2. `App.py`: Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'server' for the PC running server code
 3. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/web/static/csv)   
 4. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/web/static/functions): <br>
@@ -18,7 +18,7 @@ In addition, modify variables so as to select if you want to send to web-host (p
 5. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/web/static/styles/styles.css) <br>
         - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
-# Local visualization test
+## Local visualization test
 To run the visualization follow the steps below:
 
 1. Git clone the repo 
@@ -31,7 +31,7 @@ To run the visualization follow the steps below:
 
 (The visualization `App.py` can work without running ngrok and server)
 
-# Raspberry Pi visualization test
+## Raspberry Pi visualization test
 1. Git clone the repo (if not cloned yet)
 2. Try running `App.py` and `send_messages.py` (to see import errors) 
 3. pip install all reported dependencies (continue until you do not have import errors)
@@ -40,31 +40,29 @@ To run the visualization follow the steps below:
 6. In Raspberry Pi, run `App.py` for the visualization and `send_messages.py` to send the data to server PC
 7. (Oprtional) If you want to run the program as a startup application (exactly after boot) you should copy the files: `virtualization.desktop` and `firefox.desktop` and `send.desktop` which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in Raspberry Pi) (and check that these files have execution permission). <strong>Important!</strong> change the comments to use the correct `Exec` configuration in `.desktop` files.
 
-# ToDos for Correct Visualization Check (ensure continuous visualization)
+## ToDos for Correct Visualization Check (ensure continuous visualization)
 
 1. Use `restart` files in the `Exec` configuration of the `.desktop` files (`ngrok.desktop` and `firefox.desktop`)
 2. Repeat the steps for the Raspberry Pi that will run in MEBC (`xterm` may not be installed there)
 3. Change code in `useful.py` and `dummy_server.py` (or use `Final_server.py`) so as to read the last line of the CSV in which `gps_with_temp.py` writes.
 
-# Basic Understanding of Code for Web Host (Beta) 
+## Basic Understanding of Code that send messages to Web Host
 
 1. `send_messages.py`: Local code that sends messages to HOST or/and Server (PC that runs server code)
-2. `requestsAPI`: in this folder `send.py` is used to send the current data to the HOST by writing them as the last line of a CSV file in HOST (this is done by an HTTP request to the  API of pythonanywhere console to write a bash command).
+2. `helpers`: in this folder `sendWEB.py` is used to send the current json data to the HOST by HTTP POST request at endpoint `/send-data`  (This is probably similar to the way that we will send data to MEBC API - Server). Host receives the request json data and writes them as the last line of a CSV file `hostdata.csv`.
 
-# Deploy code in Web Host (Beta)
+## Deploy code in Web Host
 
 1. In pythonanywhere account, delete the folder `/home/oceanosntua/oceanos-visualization-2024`
-2. Write in bash console in Python (if there is open console, do not open new, and do not exit/terminate console!) `cd /home/oceanosntua/`
+2. Write in bash console in Python `cd /home/oceanosntua/`
 3. Git clone the repo: `git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git`
 4. Enter the repo directory: `cd oceanos-visualization-2024/`
 5. In pythonanywhere file `/home/oceanosntua/oceanos-visualization-2024/App.py`: set `mode` to the value 'web' instead of 'local'
-6. Type in console `cd /home/oceanosntua/oceanos-visualization-2024/static/csv`
-7. Take the id of that console (ensure that this console will not close)
-8. In your <strong>local</strong> `useful.py`, set `console_id` to the id of the console above
-9. Reload the website from pythonanywhere reload button, and it is ready.
-10. Run the <strong>local</strong> `send_messages.py` (for about half a minute).
-11. Refresh the web page and you will see that data change in the Normal mode visualization!
+6. Reload the website from pythonanywhere reload button.
+7. Run the <strong>local</strong> `send_messages.py`.
+8. Refresh the web page and you will see that data change in the Normal mode visualization!
 
+Bash commands for 1-5 in pythonanywhere bash console.
 ```bash
 rm -r /home/oceanosntua/oceanos-visualization-2024
 ```
