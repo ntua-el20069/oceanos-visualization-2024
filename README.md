@@ -67,8 +67,8 @@ To run the visualization follow the steps below:
 
 ```bash
 rm -r /home/oceanosntua/oceanos-visualization-2024
-```
-```bash
+y
+y
 cd /home/oceanosntua/
 git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git
 cd oceanos-visualization-2024/

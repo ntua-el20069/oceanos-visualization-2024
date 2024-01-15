@@ -2,7 +2,7 @@ from threading import Thread
 import socket
 from helpers.readCSV import readCSV
 import time
-from requestsAPI.send import send_website
+from helpers.sendWEB import send_website
 from useful import *
 
 
@@ -13,12 +13,9 @@ def send_messages(server_socket):
         if not send_to_host:
             time.sleep(delay)        
         data_now = readCSV(csv_url, fieldnames, realTime = False, delay = delay)
-        #before = time.time()
+
         if send_to_host:
-            send_website(data_now, host_write_csv_path, username, token, console_id)
-        #print(data_now)
-        #after = time.time()
-        #print(f'{blue}Pseudo Time: {(after - before):.3f} seconds {reset_color})')
+            send_website(data_now)
 
         message = str(data_now)
 
