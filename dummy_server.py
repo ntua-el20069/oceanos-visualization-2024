@@ -40,6 +40,9 @@ def receive_messages(client_socket):
         my_str = data.decode('utf-8').replace("'", '"')
         #print(len(my_str))
         #my_str2=my_str.replace(" ",'"')
+        if 'Response' in my_str:  # handle response message about webhost message sending
+            print(my_str)
+            continue
         if len(my_str)<=600:
             if len(my_str)>=150:
                 data2 = json.loads(my_str)

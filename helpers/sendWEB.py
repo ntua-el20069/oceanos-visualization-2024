@@ -19,16 +19,17 @@ def send_website(data_now: dict):
 
         response_text = response.content.decode('utf-8')
         
-        print(f'{green} HTTP POST {reset_color} Request Response: (Time consumed: {green} {(end-start):.3f} seconds {reset_color})', end='\t Response: ')
+        out = f'{green} HTTP POST {reset_color} Request Response: (Time consumed: {green} {(end-start):.3f} seconds {reset_color})\t Response: '
         color = green if 'OK' in response_text else red
-        print(f"{color}{response_text}{reset_color}", end='')
+        out += f"{color}{response_text}{reset_color}"
     
     except requests.exceptions.ConnectTimeout as err:
-        print(f"{red}Connection timeout occurred: {err}{reset_color}")
+        out = f"Response: {red}Connection timeout occurred: {err}{reset_color}\n"
     except requests.exceptions.Timeout as err:
-        print(f"{red}Request timed out: {err}{reset_color}")
+        out = f"Response: {red}Request timed out: {err}{reset_color}\n"
     except requests.exceptions.RequestException as e:
-        print(f"{red}Request error: {e}{reset_color}")
+        out = f"Response: {red}Request error: {e}{reset_color}\n"
+    return out
 
     
     
