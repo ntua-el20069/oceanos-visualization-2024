@@ -58,6 +58,10 @@ def receive_messages(client_socket):
 
 # Set up the socket to listen for incoming connections
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# avoid bind() exception: OSError: [Errno 98] Address already in use
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
 server_socket.bind(('localhost', 8080))
 server_socket.listen(1)
 # Test gia na fanei oti leitoyrgei h syndesh
