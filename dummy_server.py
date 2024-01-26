@@ -7,6 +7,8 @@ import ast
 import pandas as pd
 import json
 import os
+from useful import red, yellow, reset_color
+import time
 
 dir = "/Users/vassdel/Library/CloudStorage/OneDrive-ΕθνικόΜετσόβιοΠολυτεχνείο/Oceanos/Arduino/vesc_can_bus_arduino"
 
@@ -38,23 +40,37 @@ def receive_messages(client_socket):
         # print("hello")
         data = client_socket.recv(1024)
         my_str = data.decode('utf-8').replace("'", '"')
+
         #print(len(my_str))
         #my_str2=my_str.replace(" ",'"')
         if 'Response' in my_str:  # handle response message about webhost message sending
             print(my_str)
             continue
-        if len(my_str)<=600:
-            if len(my_str)>=150:
-                data2 = json.loads(my_str)
-                with open('serverdata.csv', 'a') as csv_file: #open test1 in append mode, keep appending to the csv
-                    csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-                #ta dedomena gia ta headers
-                #na prosthesw sto data to time
-                    csv_writer.writerow(data2) #writes one row at a time sto test1.csv
-                    csv_file.close()
-                if not data:
-                    break
-                print(f"{data.decode()}")
+        
+        ### Debugging History: for the olds to remember and for the newbies to learn
+        #if len(my_str)>600 or len(my_str)<150: continue   # this line is a check for the length of the json data we send, it seems that works without this check ..? 
+        '''try:
+            data2 = json.loads(my_str)
+        except json.decoder.JSONDecodeError as e:
+            print(f"{yellow} These data: {reset_color} data: {data} my_str: {my_str}")
+            print(f"Caused this {red} JSONDecode Error {e} {reset_color}")
+            time.sleep(5)
+            continue'''
+        ###
+        
+        ## when the data sending stops, we receive the empty string as message
+        if not my_str: continue  # the empty string cannot be JSON decoded
+        data2 = json.loads(my_str)
+        
+        with open('serverdata.csv', 'a') as csv_file: #open test1 in append mode, keep appending to the csv
+            csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        #ta dedomena gia ta headers
+        #na prosthesw sto data to time
+            csv_writer.writerow(data2) #writes one row at a time sto test1.csv
+            csv_file.close()
+        if not data:
+            break
+        print(f"{data.decode()}")
 
 # Set up the socket to listen for incoming connections
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
