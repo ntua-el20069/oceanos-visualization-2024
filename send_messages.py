@@ -27,7 +27,7 @@ def send_messages():
     global server_socket
     while True:
         total_start = time.time()
-        data_now = readCSV(csv_url, fieldnames, realTime = False, delay = delay)
+        data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay)
         message = str(data_now) 
 
         if send_to_server:
