@@ -6,7 +6,7 @@ from useful import *
 from helpers.readCSV import readCSV
 from helpers.sendWEB import send_website
 
-
+webhost_response = 'Not sent to web host yet. No Response.'
 # Set up Ngrok tunnel
 public_url = "oceanos.ngrok.app"
 print("Ngrok Tunnel: " + public_url)
@@ -18,6 +18,7 @@ def relax(start):
     #print(f'{magenta} Total time {reset_color} for send to HOST & server & sleep: {magenta}  {(time.time() - start):.3f} seconds {reset_color})\n')
 
 def send_messages_web():
+    global webhost_response
     while True:
         initial_start = time.time()
         data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay)
@@ -27,14 +28,16 @@ def send_messages_web():
 
 # Function to send the last line of the CSV file every second
 def send_updates(client_socket):
+    global webhost_response
     try:
         # Prepei na stal8ei ena mhnyma apo ton server gia na mporei meta na dextei mhnymata toy client giati exoume krathsei thn epikoinwnia 2 way (h apla prepei na eimaste eygenikoi symfwna me ton skoun)
         client_socket.sendall("Welcome to the chat room!\n".encode())
         while True:
             initial_start = time.time()
             data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay)
-            message = str(data_now)
+            data_message = str(data_now)
             start = time.time() 
+            message = data_message + data_response_delimiter + webhost_response
             client_socket.sendall(message.encode())
             end = time.time()
             print(f'Send message to server via {blue} TCP {reset_color}(Time consumed: {blue} {(end-start):.3f} seconds {reset_color})')

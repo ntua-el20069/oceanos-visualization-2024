@@ -6,6 +6,8 @@ server_read_csv_path = 'serverdata.csv'                     ### CHANGE with the 
 
 host_read_csv_path = f'/home/oceanosntua/hostdata.csv'
 
+data_response_delimiter = '### Web Host says ###'
+
 red = "\033[31m"
 blue = "\033[34m"
 yellow = "\033[33m"
