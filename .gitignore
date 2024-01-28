@@ -1,2 +1,4 @@
 venv/
 req.txt
+serverdata.csv
+__pycache__
