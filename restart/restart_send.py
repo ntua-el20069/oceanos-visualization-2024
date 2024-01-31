@@ -1,7 +1,7 @@
 import subprocess
 import time
 while True:
-	pythonProcess = subprocess.check_output("ps -ef | grep 'send_messages.py'", shell =True).decode()
+	pythonProcess = subprocess.check_output("ps -ef | grep 'server.py'", shell =True).decode()
 	pythonProcess = pythonProcess.split('\n')
 	print(len(pythonProcess))
 	print(type(pythonProcess))
@@ -14,6 +14,6 @@ while True:
 			print(i)
 			time.sleep(1)
 		if i ==0:
-			subprocess.call(['python3', 'send_messages.py'])
+			subprocess.call(['python3', 'server.py'])
 			print("process restarted!") 
 			time.sleep(1)

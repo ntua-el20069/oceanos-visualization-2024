@@ -4,7 +4,7 @@ from helpers.readCSV import readCSV
 from useful import *
 
 mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to run the script in our local computer or in host (pythonanywhere)
-                            # 'server' if you run it in server (one of our PC that runs server code)
+                            # 'client' if you run it in client (one of our PC that runs client code)
 
 app = Flask(__name__)
     
@@ -17,8 +17,8 @@ def reload():
     print(f"{yellow}Javascript Reload{reset_color}")
     if mode == 'local':
         return jsonify(readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay))
-    elif mode == 'server':
-        return jsonify(readCSV(server_read_csv_path, fieldnames, realTime = True))
+    elif mode == 'client':
+        return jsonify(readCSV(client_read_csv_path, fieldnames, realTime = True))
     else: # 'web' mode
         return jsonify(readCSV(host_read_csv_path, fieldnames, realTime = True))  
 
@@ -43,16 +43,27 @@ def example():
 def roundSlider():
     return render_template('demo.html')
 
-def visualization():
-    # if we run this function, all devices in the same network (connected to the same router) can access the site via http://{local-IP}:5000/
-    app.run(host='0.0.0.0', use_reloader=False, debug=True)
 
 if __name__ == '__main__':
     # Start separate thread for visualization
     #web_thread = Thread(target=visualization, args=())
     #web_thread.start()
-    app.run(debug=True)
+    
 
+    
+    # Local host (our computer) visualization - not network accessible
+    # If we run this in our local computer, we can access the site via http://localhost:5000/ 
+    # app.run(debug=True)
+
+
+
+    # if we run this below, all devices in the same network (connected to the same router) 
+    # can access the site via http://{local-network-IP}:5000/       
+    # most times it is http://192.168.1.11:5000/
+    # you can find your local network IP by typing ipconfig in cmd (windows) or ifconfig in terminal (linux)
+    # or hostname -I in terminal (linux)
+    # or in windows go to network settings and find your IP
+    app.run(host='0.0.0.0', use_reloader=False, debug=True)
     
     
 

@@ -15,7 +15,7 @@ def relax(start):
     if time.time() - start < delay: # if sending was so fast, delay a little (for the remaining time of the delay)
         time.sleep(delay - (time.time() - start)) 
 
-    #print(f'{magenta} Total time {reset_color} for send to HOST & server & sleep: {magenta}  {(time.time() - start):.3f} seconds {reset_color})\n')
+    #print(f'{magenta} Total time {reset_color} for send to HOST & client & sleep: {magenta}  {(time.time() - start):.3f} seconds {reset_color})\n')
 
 def send_messages_web():
     global webhost_response
@@ -40,7 +40,7 @@ def send_updates(client_socket):
             message = data_message + data_response_delimiter + webhost_response
             client_socket.sendall(message.encode())
             end = time.time()
-            print(f'Send message to server via {blue} TCP {reset_color}(Time consumed: {blue} {(end-start):.3f} seconds {reset_color})')
+            print(f'Send message to client via {blue} TCP {reset_color}(Time consumed: {blue} {(end-start):.3f} seconds {reset_color})')
             relax(initial_start)
 
 
@@ -55,6 +55,8 @@ def start_server():
     if send_to_host:
         web_sending = threading.Thread(target=send_messages_web, args= ())
         web_sending.start()
+
+    if not send_to_client: return
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 

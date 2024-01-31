@@ -2,7 +2,7 @@ fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_l
 
 csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as Raspberry)
 
-server_read_csv_path = 'serverdata.csv'                     ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as a server PC)
+client_read_csv_path = 'clientdata.csv'                     ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as a client PC)
 
 host_read_csv_path = f'/home/oceanosntua/hostdata.csv'
 
@@ -14,10 +14,10 @@ yellow = "\033[33m"
 magenta = "\033[35m"
 reset_color = "\033[0m"
 
-send_to_server = True  # CHANGE ! server is the computer in which we run server python code (receive messages via TCP)
+send_to_client = True  # CHANGE ! client is the computer in which we run client python code (receive messages via TCP)
 send_to_host = True   # CHANGE ! host is the website (pythonanywhere) in which data are sent with HTTP POST request
 
-delay = 0.5     # this is the MIN delay of sending data to server or/and host (MAX depends on HTTP request response time - set timeout there in helpers/sendWEB.py )  
+delay = 0.5     # this is the MIN delay of sending data to client or/and host (MAX depends on HTTP request response time - set timeout there in helpers/sendWEB.py )  
                 # consider that HTTP request takes approximately 0.4 sec to complete
                 # (For reload time check JS files) 
                 # I think it is not that important to CHANGE this (delay of taking data from CSV) 

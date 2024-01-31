@@ -10,11 +10,11 @@ dir = os.getcwd()
 
 # rename the serverdata and save it to another folder (history)
 try:
-    old_fn = 'serverdata.csv'
-    new_fn = 'serverdata_' + datetime.today().strftime("%Y-%m-%d") + '_' + datetime.now().strftime("%H-%M-%S") + '.csv'
+    old_fn = client_read_csv_path
+    new_fn = 'clientdata_' + datetime.today().strftime("%Y-%m-%d") + '_' + datetime.now().strftime("%H-%M-%S") + '.csv'
 
     # Use os.path.join for proper path construction
-    os.rename(os.path.join(dir, old_fn), os.path.join(dir + "/server history/", new_fn))
+    os.rename(os.path.join(dir, old_fn), os.path.join(dir + "/csv history/", new_fn))
 except Exception as e:
     print(e)
 
@@ -30,7 +30,7 @@ print(f"\n\n\t {data.decode()}")
 print("\n\n\t Connected to the server.\n\n")
 
 #writing sto csv in append mode
-with open('serverdata.csv', 'a') as csv_file:
+with open(client_read_csv_path, 'a') as csv_file:
 	csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 	csv_writer.writeheader()
 
@@ -48,7 +48,7 @@ try:
         if not my_str: continue  # the empty string cannot be JSON decoded
         data2 = json.loads(my_str)
         
-        with open('serverdata.csv', 'a') as csv_file: #open test1 in append mode, keep appending to the csv
+        with open(client_read_csv_path, 'a') as csv_file: #open test1 in append mode, keep appending to the csv
             csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         #ta dedomena gia ta headers
         #na prosthesw sto data to time
