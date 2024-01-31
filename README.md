@@ -10,12 +10,12 @@ the MEBC 2024. It is hosted on web, to visit follow the link below:
 1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME` to have real time data (True) or not (False - simulate for development purposes), change significant paths. 
 In addition, modify variables so as to select if you want to send to web-host (pythonanywhere) or client (e.g. your computer running client python code) or both. (If you do not send to client, you do not need to run ngrok and client code !). 
 2. `App.py`: Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'client' for the PC running client code
-3. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/web/static/csv)   
-4. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/web/static/functions): <br>
+3. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/reverse-server/static/csv)   
+4. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/reverse-server/static/functions): <br>
         - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
         - You can add a new data visualization (or change sequence) by adding a data in list `allData` in `data.js` (check the class definition of `Data`). <br>
-        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/web/static/dist/roundslider.js) <br>
-5. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/web/static/styles/styles.css) <br>
+        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/reverse-server/static/dist/roundslider.js) <br>
+5. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/reverse-server/static/styles/styles.css) <br>
         - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
 ## Local visualization test
@@ -40,6 +40,15 @@ To run the visualization follow the steps below:
 5. In Raspberry Pi, run `App.py` for the visualization and `server.py` to send the data to client PC
 6. In another computer, run in a terminal the `client.py` python file to receive data as a client
 7. (Oprtional) If you want to run the program as a startup application (exactly after boot) you should copy the files: `virtualization.desktop` and `firefox.desktop` and `send.desktop` and `ngrok.desktop` which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in Raspberry Pi) (and check that these files have execution permission). <strong>Important!</strong> change the comments to use the correct `Exec` configuration in `.desktop` files.
+
+```bash
+git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git
+cd oceanos-visualization-2024/
+```
+Possible alternative for step 3:
+```bash
+pip install flask pandas requests
+```
 
 ## ToDos for Correct Visualization Check (ensure continuous visualization)
 
@@ -76,7 +85,7 @@ vim App.py
 - `helpers`: in this folder `sendWEB.py` is used to send the current json data to the HOST (web site) by HTTP POST request at endpoint `/send-data`  (This is probably similar to the way that we will send data to MEBC API). Host receives the request json data and writes them as the last line of a CSV file `hostdata.csv`.
 - `client.py` : code (that we will run in our client PC) to receive data as client PC.
 
-# Basic Understanding of the visualization
+## Basic Understanding of the visualization
 
 - `App.py` : builds a flask application that runs the backend code and sends response on requests to each specified route
 - `templates/telemetry.html` : the basic HTML template of the visualization

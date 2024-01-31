@@ -59,5 +59,5 @@ setInterval(function() {
         reloadPage();
     }
          
-}, 1000); // Interval set to 1000ms (1 second) CHANGE
+}, 500); // Interval set to 500 ms   CHANGE
     
