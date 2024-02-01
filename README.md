@@ -31,13 +31,12 @@ git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git
 cd oceanos-visualization-2024/
 ```
 2. (Optional) Make a virtual environment as specified here [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) and activate it.
-3. Try installing dependencies with this command
+3. Try installing dependencies with the below command. Try running `App.py` and `server.py`. If they run OK move to the next step.
+If you see import errors, pip install all reported dependencies (continue until you do not have import errors).
+Alternatively, you can install dependencies (`requirements.txt`) as specified in the venv link above (if anything throws error try removing it from `requirements.txt`, some dependencies are unnecessary).
 ```bash
 pip install flask pandas requests
 ```
-Try running `App.py` and `server.py`. If they run OK move to the next step.
-If you see import errors, pip install all reported dependencies (continue until you do not have import errors).
-Alternatively, you can install dependencies (`requirements.txt`) as specified in the venv link above (if anything throws error try removing it from `requirements.txt`, some dependencies are unnecessary)
 4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
 5. Run in a terminal the `server.py` python file for the ngrok server (it is actually the code that will run in raspberry and send data to client)
 6. Run `App.py` for the visualization 
