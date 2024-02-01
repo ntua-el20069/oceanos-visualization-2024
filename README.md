@@ -1,9 +1,14 @@
-# Visualization for Oceanos NTUA 
+# Visualization & Data Transmission for Oceanos NTUA 
 
 This is a repository used to visualize several parameters of Oceanos NTUA Boat, 
 such as Motor Temperature, Rounds per Minute of the Motor, that are required in
 the MEBC 2024. It is hosted on web, to visit follow the link below:
 [Oceanos Visualization Website](http://oceanosntua.pythonanywhere.com/)
+
+## Users of the Application
+
+1. <strong> Raspberry / Test-Server PC </strong> : Proceed to Visualization test
+2. <strong> Client PC </strong> : Just download client folder from Google Drive, and read the instructions inside the README there
 
 ## Quick Changes in the Code 
 
@@ -18,37 +23,28 @@ In addition, modify variables so as to select if you want to send to web-host (p
 5. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/reverse-server/static/styles/styles.css) <br>
         - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
-## Local visualization test
-To run the visualization follow the steps below:
+## Visualization test
 
 1. Git clone the repo 
-2. Make a virtual environment as specified here [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
-3. Install dependencies (`requirements.txt`) as specified in the link above (if anything throws error try removing it from `requirements.txt` - some dependencies are unnecessary)
-4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
-5. Run in a terminal the `server.py` python file for the ngrok server (it is actually the code that will run in raspberry and send messages to client)
-6. Run `App.py` for the visualization 
-7. Run `client.py` to receive data as client PC
-8. (Oprtional) If you want to run the program as a startup application (exactly after boot) you should copy the `.desktop` files which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in most Unix based systems) (and check that these files have execution permission)
-
-(The visualization `App.py` can work without running ngrok and server)
-
-## Raspberry Pi visualization test
-1. Git clone the repo (if not cloned yet)
-2. Try running `App.py` and `send_messages.py` (to see import errors) 
-3. pip install all reported dependencies (continue until you do not have import errors)
-4. In Raspberry, run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
-5. In Raspberry Pi, run `App.py` for the visualization and `server.py` to send the data to client PC
-6. In another computer, run in a terminal the `client.py` python file to receive data as a client
-7. (Oprtional) If you want to run the program as a startup application (exactly after boot) you should copy the files: `virtualization.desktop` and `firefox.desktop` and `send.desktop` and `ngrok.desktop` which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in Raspberry Pi) (and check that these files have execution permission). <strong>Important!</strong> change the comments to use the correct `Exec` configuration in `.desktop` files.
-
 ```bash
 git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git
 cd oceanos-visualization-2024/
 ```
-Possible alternative for step 3:
+2. (Optional) Make a virtual environment as specified here [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) and activate it.
+3. Try installing dependencies with this command
 ```bash
 pip install flask pandas requests
 ```
+Try running `App.py` and `server.py`. If they run OK move to the next step.
+If you see import errors, pip install all reported dependencies (continue until you do not have import errors).
+Alternatively, you can install dependencies (`requirements.txt`) as specified in the venv link above (if anything throws error try removing it from `requirements.txt` - some dependencies are unnecessary)
+4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
+5. Run in a terminal the `server.py` python file for the ngrok server (it is actually the code that will run in raspberry and send data to client)
+6. Run `App.py` for the visualization 
+7. Run `client.py` (maybe in another PC) to receive data as client PC
+8. (Optional) If you want to run the program as a startup application (exactly after boot) you should copy the files: `virtualization.desktop` and `firefox.desktop` and `send.desktop` and `ngrok.desktop` which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in Raspberry Pi) (and check that these files have execution permission). <strong>Important!</strong> change the comments to use the correct `Exec` configuration in `.desktop` files.
+
+(The visualization `App.py` can work without running ngrok and server)
 
 ## ToDos for Correct Visualization Check (ensure continuous visualization)
 
