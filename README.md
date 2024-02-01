@@ -37,7 +37,7 @@ pip install flask pandas requests
 ```
 Try running `App.py` and `server.py`. If they run OK move to the next step.
 If you see import errors, pip install all reported dependencies (continue until you do not have import errors).
-Alternatively, you can install dependencies (`requirements.txt`) as specified in the venv link above (if anything throws error try removing it from `requirements.txt` - some dependencies are unnecessary)
+Alternatively, you can install dependencies (`requirements.txt`) as specified in the venv link above (if anything throws error try removing it from `requirements.txt`, some dependencies are unnecessary)
 4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
 5. Run in a terminal the `server.py` python file for the ngrok server (it is actually the code that will run in raspberry and send data to client)
 6. Run `App.py` for the visualization 
