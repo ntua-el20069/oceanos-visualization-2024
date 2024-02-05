@@ -42,8 +42,8 @@ for (data of allData){
         containerDiv.appendChild(controlDiv);
         dataDiv.appendChild(containerDiv);
     }
-    
-    dataDiv.appendChild(errorElement);
+    // Append the error message
+    // dataDiv.appendChild(errorElement);  // Removed appending the error message to the visualization div
     // Add the constructed element to the document body or another parent element
     parent.appendChild(dataDiv);
 }
