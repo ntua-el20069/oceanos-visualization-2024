@@ -1,6 +1,5 @@
 .venv/
 venv/
 req.txt
-*.csv
 __pycache__
 readCSVtests/

@@ -5,7 +5,8 @@ IP = ''
 PORT = ''
 MEBC_API_url = f"http://{IP}:{PORT}/monitoringdata/"
 
-csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as Raspberry)
+#csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as Raspberry)
+csv_url = 'static/csv/merged_file.csv'  
 
 client_read_csv_path = 'clientdata.csv'                     ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as a client PC)
 
