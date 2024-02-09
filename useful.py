@@ -1,5 +1,10 @@
 fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
 
+MEBC_fieldnames = []
+IP = ''
+PORT = ''
+MEBC_API_url = f"http://{IP}:{PORT}/monitoringdata/"
+
 csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as Raspberry)
 
 client_read_csv_path = 'clientdata.csv'                     ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as a client PC)
@@ -14,6 +19,7 @@ yellow = "\033[33m"
 magenta = "\033[35m"
 reset_color = "\033[0m"
 
+send_to_MEBC_API = False  # CHANGE ! MEBC_API is the server of the MEBC 
 send_to_client = True  # CHANGE ! client is the computer in which we run client python code (receive messages via TCP)
 send_to_host = True   # CHANGE ! host is the website (pythonanywhere) in which data are sent with HTTP POST request
 

@@ -6,11 +6,11 @@ red = "\033[31m"
 # Reset ANSI escape code for default text color
 reset_color = "\033[0m"
 
-def send_website(data_now: dict):
+def send_website(data_now: dict, url = 'http://oceanosntua.pythonanywhere.com/send-data'):
     start = time.time()
     try: 
         response = requests.post(
-            'http://oceanosntua.pythonanywhere.com/send-data',
+            url,
             json=data_now,
             timeout=1
         )

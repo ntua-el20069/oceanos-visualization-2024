@@ -7,6 +7,7 @@ from helpers.readCSV import readCSV
 from helpers.sendWEB import send_website
 
 webhost_response = 'Not sent to web host yet. No Response.'
+MEBC_API_response = 'Not sent to MEBC API yet. No Response.'
 # Set up Ngrok tunnel
 public_url = "oceanos.ngrok.app"
 print("Ngrok Tunnel: " + public_url)
@@ -24,6 +25,15 @@ def send_messages_web():
         data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay)
         webhost_response = send_website(data_now)
         print(webhost_response, end='')
+        relax(initial_start)
+
+def send_MEBC_API():    ## NOT functional yet
+    global MEBC_API_response
+    while True:
+        initial_start = time.time()
+        data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay) ## I should CHANGE something here about fieldnames
+        MEBC_API_response = send_website(data_now, MEBC_API_url)
+        print(MEBC_API_response, end='')
         relax(initial_start)
 
 # Function to send the last line of the CSV file every second
@@ -55,6 +65,10 @@ def start_server():
     if send_to_host:
         web_sending = threading.Thread(target=send_messages_web, args= ())
         web_sending.start()
+    
+    if send_to_MEBC_API:
+        MEBC_API_sending = threading.Thread(target=send_MEBC_API, args= ())
+        MEBC_API_sending.start()
 
     if not send_to_client: return
 
