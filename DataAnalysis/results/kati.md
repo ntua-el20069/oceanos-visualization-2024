@@ -1,0 +1,1 @@
+here will be placed the min and max values for all data.

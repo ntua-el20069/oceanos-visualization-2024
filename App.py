@@ -43,6 +43,20 @@ def example():
 def roundSlider():
     return render_template('demo.html')
 
+# TODO : A .html page where we select (in an HTML form) the following:
+#           1. the time period (start date time , end date time)
+#           2. the type of plots we want to see (line, scatter, current_with_temp)
+#           3. the data we want to see (motor_current, motor_temp, battery_current, battery_temp, battery_voltage, etc) from the fieldnames list
+#       and will make a POST request to '/make-diagram'  
+
+@app.route('/make-diagram', methods = ['POST']) # make diagram route
+def make_diagram():
+    # TODO: this route should make the demanded diagram by the form and redirect to it
+    pass
+
+@app.route('/diagram-test') # test route
+def diagramTest():
+    return render_template('diagrams/current_with_temp/motor_current_with_motor_tempMosfet.html')
 
 if __name__ == '__main__':
     # Start separate thread for visualization
