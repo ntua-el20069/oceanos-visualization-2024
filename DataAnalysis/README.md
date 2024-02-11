@@ -9,5 +9,5 @@ I wait Nina to upload the data analysis python sripts:
 - `Server_Data.py`
 - `Data_Collecting.py` 
 
-### Credits to Nina Anastasopoulou 
+### Credits to Nina Anastopoulou 
 [nina-anast](https://github.com/nina-anast)
