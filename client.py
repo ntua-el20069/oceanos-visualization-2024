@@ -20,7 +20,7 @@ except Exception as e:
 
 # Connect to the server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('8.tcp.eu.ngrok.io', 20375))  # Replace YOUR_NGROK_PORT with the port provided by ngrok
+client.connect(('8.tcp.eu.ngrok.io', 20628))  # Replace YOUR_NGROK_PORT with the port provided by ngrok
 #previous = time.time()
 # Test gia na fanei oti leitoyrgei h syndesh
 print(fieldnames)
