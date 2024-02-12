@@ -13,8 +13,9 @@ public_url = "oceanos.ngrok.app"
 print("Ngrok Tunnel: " + public_url)
 
 def relax(start):
-    if time.time() - start < delay: # if sending was so fast, delay a little (for the remaining time of the delay)
-        time.sleep(delay - (time.time() - start)) 
+    time_consumed = time.time() - start
+    if time_consumed < delay: # if sending was so fast, delay a little (for the remaining time of the delay)
+        time.sleep(delay - time_consumed) 
 
     #print(f'{magenta} Total time {reset_color} for send to HOST & client & sleep: {magenta}  {(time.time() - start):.3f} seconds {reset_color})\n')
 
