@@ -37,9 +37,9 @@ Alternatively, you can install dependencies (`requirements.txt`) as specified in
 ```bash
 pip install flask pandas requests
 ```
-4. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
-5. Run in a terminal the `server.py` python file for the ngrok server (it is actually the code that will run in raspberry and send data to client)
-6. Run `App.py` for the visualization 
+4. Run `App.py` for the visualization 
+5. Run in a terminal the command `ngrok start oceanos` (after you follow the instructions for ngrok)
+6. Run in a terminal the `server.py` python file for the ngrok server (it is actually the code that will run in raspberry and send data to client)
 7. Run `client.py` (maybe in another PC) to receive data as client PC
 8. (Optional) If you want to run the program as a startup application (exactly after boot) you should copy the files: `virtualization.desktop` and `firefox.desktop` and `send.desktop` and `ngrok.desktop` which are in the `desktop` folder and paste them inside directory `~/.config/autostart` (in Raspberry Pi) (and check that these files have execution permission). <strong>Important!</strong> change the comments to use the correct `Exec` configuration in `.desktop` files.
 
