@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
-Exec=ngrok start oceanos
+#Exec=ngrok start oceanos
+Exec=xterm -hold -e "bash -c ' cd /home/nikolaospapa3/Documents/Oceanos/Telemetry/oceanos-visualization-2024 && python3 restart/restart_tunnel.py'"
 Terminal=true
 Hidden=false
 NoDisplay=false
