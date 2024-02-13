@@ -1,6 +1,7 @@
 fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_lap", "rtc", "millis", "rpm", "input_voltage", "motor_watt", "motor_tempMosfet", "motor_tempMotor", "motor_current", "battery_current","motor_dutyCycle", "motor_error", "rasp_temp", "battery_ampere", "battery_voltage", "charge", "battery_temperature", "autonomy"]
 
-MEBC_fieldnames = []
+MEBC_fieldnames = ["temp1","temp2","temp3","voltage","current","lat","lon","team"]
+
 IP = ''
 PORT = ''
 MEBC_API_url = f"http://{IP}:{PORT}/monitoringdata/"
