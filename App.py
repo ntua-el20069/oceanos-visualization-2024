@@ -10,29 +10,35 @@ mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to ru
                             # 'client' if you run it in client (one of our PC that runs client code)
 
 app = Flask(__name__)
-    
+
+data_now = {} # global variable to store the most recent data
+
 @app.route('/')  # basic web route
 def home():
     return render_template('telemetry.html') 
 
 @app.route('/reload') # reload data, update visualization (a JavaScript function fetches this JSON data every 1 sec)
 def reload():  
+    global data_now
     print(f"{yellow}Javascript Reload{reset_color}")
     if mode == 'local':
         return jsonify(readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay))
     elif mode == 'client':
         return jsonify(readCSV(client_read_csv_path, fieldnames, realTime = True))
     else: # 'web' mode
-        return jsonify(readCSV(host_read_csv_path, fieldnames, realTime = True))  
+        return data_now
+        #return jsonify(readCSV(host_read_csv_path, fieldnames, realTime = True))  
 
 @app.route('/send-data', methods = ['POST'])
 def send_data():
+    global data_now
     try:
         request_data = request.get_json()
         separator = ','
         csv_line = separator.join(list(request_data.values())).replace('nan','')
         with open(host_read_csv_path,'a',encoding='utf-8') as csvFile:
             print(f"{csv_line}", file=csvFile)     
+        data_now = request_data
     except Exception as e:
         return jsonify({"message" : f'Error: {e}'}), 400 
     return jsonify({"message" : 'OK'}), 200    
