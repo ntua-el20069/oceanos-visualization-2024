@@ -1,3 +1,5 @@
+# <span style="color: red;"> Outdated Repo </span>
+check `OceanosTeam/Monaco2024`
 # Visualization & Data Transmission for Oceanos NTUA 
 
 This is a repository used to visualize several parameters of Oceanos NTUA Boat, 
