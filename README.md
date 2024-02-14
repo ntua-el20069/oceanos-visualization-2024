@@ -15,12 +15,12 @@ the MEBC 2024. It is hosted on web, to visit follow the link below:
 1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME` to have real time data (True) or not (False - simulate for development purposes), change significant paths. 
 In addition, modify variables so as to select if you want to send to web-host (pythonanywhere) or client (e.g. your computer running client python code) or both. (If you do not send to client, you do not need to run ngrok and client code !). 
 2. `App.py`: Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'client' for the PC running client code
-3. [Add CSV in this Folder](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/reverse-server/static/csv)   
-4. [Javascript Files](https://github.com/ntua-el20069/oceanos-visualization-2024/tree/reverse-server/static/functions): <br>
+3. Add <strong>CSV</strong> in this Folder: `static/csv`   
+4. <strong>Javascript Files</strong> here: `static/functions` <br>
         - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
         - You can add a new data visualization (or change sequence) by adding a data in list `allData` in `data.js` (check the class definition of `Data`). <br>
-        - You can change the display of the roundSliders in `display.js` after you check [roundSlider attributes](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/reverse-server/static/dist/roundslider.js) <br>
-5. [Styles](https://github.com/ntua-el20069/oceanos-visualization-2024/blob/reverse-server/static/styles/styles.css) <br>
+        - You can change the display of the roundSliders in `display.js` after you check <strong>roundSlider</strong> attributes `static/dist/roundslider.js` <br>
+5. <strong>Styles</strong> `static/styles/styles.css` <br>
         - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
 ## Visualization test
