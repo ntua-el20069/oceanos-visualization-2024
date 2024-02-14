@@ -1,4 +1,4 @@
- <span style="color: red;"> **Outdated Repo** </span>
+ <span style="color: red;"> Outdated Repo </span>
 check `OceanosTeam/Monaco2024`
 # Visualization & Data Transmission for Oceanos NTUA 
 
