@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
-from Demands import *
 
-selected_data,data = fetching_data(start_time,end_time) 
-
-def max_min_values(time_values,limit):
+def max_min_values(time_values,limit,data):
     # Calculate the maximum values for each fieldname
     if limit == 'max':
         max_elements = time_values.max()
@@ -37,10 +34,6 @@ def max_min_values(time_values,limit):
     # Add max_times as the fourth column "Duration"
     max_df["Duration"] = max_df["Fieldname"].map(lambda x: max_times[x][1])
 
-    max_df.to_csv(f"results/{limit}_values.csv", index=False)
+    max_df.to_csv(f"DataAnalysis/results/{limit}_values.csv", index=False)
     return max_df
 
-if __name__ == '__main__':
-
-    max_min_values(selected_data,'max') # if you want to check all data switch selected_data with data
-    # max_min_values(selected_data,'min')

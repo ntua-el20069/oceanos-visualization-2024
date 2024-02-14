@@ -2,6 +2,9 @@
 from flask import Flask, render_template, redirect, url_for, jsonify, request
 from helpers.readCSV import readCSV
 from useful import *
+from Diagrams import statistics_plots, current_with_temp2
+import pandas as pd
+from datetime import datetime
 
 mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to run the script in our local computer or in host (pythonanywhere)
                             # 'client' if you run it in client (one of our PC that runs client code)
@@ -49,14 +52,51 @@ def roundSlider():
 #           3. the data we want to see (motor_current, motor_temp, battery_current, battery_temp, battery_voltage, etc) from the fieldnames list
 #       and will make a POST request to '/make-diagram'  
 
+@app.route('/select-diagram') # select diagram route
+def select_diagram():
+    return render_template('diagram-select.html')
+
 @app.route('/make-diagram', methods = ['POST']) # make diagram route
 def make_diagram():
     # TODO: this route should make the demanded diagram by the form and redirect to it
-    pass
+    try:
+        start_datetime = request.form['startDateTime']
+        end_datetime = request.form['endDateTime']
+        type = request.form['plotType']
+        field = request.form['dataSelection']
+
+        # change datetime format to match the one in the csv file
+        datetime_format = "%Y-%m-%dT%H:%M"
+        start_datetime = datetime.strptime(start_datetime, datetime_format)
+        end_datetime = datetime.strptime(end_datetime, datetime_format)
+
+        start_time = start_datetime.time()
+        end_time = end_datetime.time()
+
+        start_timedelta = pd.to_timedelta(str(start_time))
+        end_timedelta = pd.to_timedelta(str(end_time))
+
+        if type == 'line' or type == 'scatter':
+            statistics_plots(start_timedelta , end_timedelta , field, type)
+        elif type == 'current_with_temp':
+            current_with_temp2(start_timedelta, end_timedelta)
+        else:
+            pass
+        return redirect(f'/diagram/{type}/{field}')
+        #return jsonify({"message" : f'OK', "start": f"{start_time}", 'end': f"{end_time}", 'type': f"{type}", 'field': f"{field}"}), 200
+        
+    except Exception as e:
+        return jsonify({"message" : f'Error: {e}', 'possible-solution': 'Check that input and select names in the form are as specified in /make-diagram route'}), 400
 
 @app.route('/diagram-test') # test route
 def diagramTest():
     return render_template('diagrams/current_with_temp/motor_current_with_motor_tempMosfet.html')
+
+@app.route('/diagram/<type>/<field>') # diagram route
+def diagram(type, field):
+    if type == 'current_with_temp':
+        return render_template(f'diagrams/{type}/{field}.html')
+    return render_template(f'diagrams/statics/{type}/{field}.html')
 
 if __name__ == '__main__':
     # Start separate thread for visualization
@@ -73,7 +113,7 @@ if __name__ == '__main__':
 
     # if we run this below, all devices in the same network (connected to the same router) 
     # can access the site via http://{local-network-IP}:5000/       
-    # most times it is http://192.168.1.11:5000/
+    # most times it is something like http://192.168.1.11:5000/
     # you can find your local network IP by typing ipconfig in cmd (windows) or ifconfig in terminal (linux)
     # or hostname -I in terminal (linux)
     # or in windows go to network settings and find your IP

@@ -1,11 +1,15 @@
 import pandas as pd
 import numpy as np
+import argparse
 import plotly.express as px
-from Demands import *
-from Data_Analysis import max_min_values
+from DataAnalysis.Demands import *    # switch with Server_Data if needed
+#from DataAnalysis.Server_Data import fieldnames,data
+from DataAnalysis.Data_Analysis import max_min_values
+from useful import fieldnames, csv_url
 from plotly.subplots import make_subplots
 import plotly.graph_objs as go
 
+csv_relative_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'
 
 def plotting_values(time_values,field,type):
 
@@ -19,7 +23,7 @@ def plotting_values(time_values,field,type):
         return
 
     # To save the plot as an HTML file
-    fig.write_html(f'diagrams/{type}/{field}.html')
+    fig.write_html(f'templates/diagrams/{type}/{field}.html')
 
 def current_with_temp(time_values):
 
@@ -48,11 +52,11 @@ def current_with_temp(time_values):
         fig.update_yaxes(title_text="<b>Motor Current</b>", secondary_y=False)
         fig.update_yaxes(title_text=f"<b>{field}</b>", secondary_y=True)
 
-        fig.write_html(f'diagrams/current_with_temp/motor_current_with_{field}.html')
+        fig.write_html(f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
 
 def current_with_temp2(start_time,end_time):
-
-    selected_data,data = fetching_data(start_time,end_time)
+    global fieldnames
+    selected_data,data = fetching_data(start_time,end_time,fieldnames, csv_relative_url)
 
     for field in ['motor_tempMotor','motor_tempMosfet']:
         fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -67,7 +71,7 @@ def current_with_temp2(start_time,end_time):
             secondary_y=True,
         )
         # Add max point and annotations
-        max_df = max_min_values(selected_data, 'max')
+        max_df = max_min_values(selected_data, 'max', data)
         max_point_time = max_df[max_df['Fieldname'] == field]['Max Time'].iloc[0]
         max_point_value = max_df[max_df['Fieldname'] == field]['Max Value'].iloc[0]
         duration = max_df[max_df['Fieldname'] == field]['Duration'].iloc[0]
@@ -94,11 +98,11 @@ def current_with_temp2(start_time,end_time):
         fig.update_yaxes(title_text="<b>Motor Current</b>", secondary_y=False)
         fig.update_yaxes(title_text=f"<b>{field}</b>", secondary_y=True)
 
-        fig.write_html(f'diagrams/current_with_temp/motor_current_with_{field}.html')
+        fig.write_html(f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
 
 def statistics_plots(start_time,end_time,field,type):
-    
-    selected_data,data = fetching_data(start_time,end_time)
+    global fieldnames
+    selected_data,data = fetching_data(start_time,end_time,fieldnames,csv_relative_url)
     '''Here you make the plot depending on the  start_time -> end_time   time duration,
      you should make an html written like {field}.html that includes 
      plot time-field, max value and time obtained, min value and time obtained, duration,...'''
@@ -106,7 +110,7 @@ def statistics_plots(start_time,end_time,field,type):
     if type == 'scatter':
         fig = px.scatter(selected_data, x='current_time', y=field, title=field)
         # Add max point with a different color
-        max_df = max_min_values(selected_data,'max')
+        max_df = max_min_values(selected_data,'max',data)
         max_point_time = max_df[max_df['Fieldname'] == field]['Max Time'].iloc[0]
         max_point_value = max_df[max_df['Fieldname'] == field]['Max Value'].iloc[0]
         duration = max_df[max_df['Fieldname'] == field]['Duration'].iloc[0]
@@ -123,7 +127,7 @@ def statistics_plots(start_time,end_time,field,type):
     elif type == 'line':
         fig = px.line(selected_data, x='current_time', y=field, title=field)
         # Add max point with a different color
-        max_df = max_min_values(selected_data,'max')
+        max_df = max_min_values(selected_data,'max',data)
         max_point_time = max_df[max_df['Fieldname'] == field]['Max Time'].iloc[0]
         max_point_value = max_df[max_df['Fieldname'] == field]['Max Value'].iloc[0]
         duration = max_df[max_df['Fieldname'] == field]['Duration'].iloc[0]
@@ -142,20 +146,40 @@ def statistics_plots(start_time,end_time,field,type):
         return
 
     # To save the plot as an HTML file
-    fig.write_html(f'diagrams/statics/{type}/{field}.html')
+    fig.write_html(f'templates/diagrams/statics/{type}/{field}.html')
 
 
-if __name__ == '__main__':
+### Main program to test each function
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Your program description here")
+    parser.add_argument("action", choices=["diagrams", "data_analysis", "fetch"], help="Specify the action to perform")
 
-    # if you don't want all data but just a single plot comment the for loop and place on field the value you wish
-    # to make lines instead of dots replace 'scatter' with 'line'
-    # for field in data.columns: 
-    #    plotting_values(selected_data,field,'scatter')
+    args = parser.parse_args()
 
-    # plots motor current with the corresponding temperatures
-    # current_with_temp2(start_time,end_time)
+    # we fetch the data from the csv file and request analysis for a specific time
+    start_time = pd.to_timedelta('16:07:35.078')
+    end_time = pd.to_timedelta('16:08:22.159')
+    selected_data,data = fetching_data(start_time,end_time,fieldnames,csv_relative_url)
 
-    selected_data,data = fetching_data(start_time,end_time)
+    if args.action == "diagrams":
+        # if you don't want all data but just a single plot comment the for loop and place on field the value you wish
+        # to make lines instead of dots replace 'scatter' with 'line'
+        # for field in data.columns: 
+        #    plotting_values(selected_data,field,'scatter')
 
-    for field in data.columns: 
-        statistics_plots(start_time,end_time,field,'line')
+        # plots motor current with the corresponding temperatures
+        current_with_temp2(start_time,end_time)
+
+        for field in data.columns: 
+            statistics_plots(start_time,end_time,field,'line')  
+
+    elif args.action == "data_analysis":
+        max_min_values(selected_data,'max',data) # if you want to check all data switch selected_data with data
+        # max_min_values(selected_data,'min',data) 
+
+    elif args.action == "fetch":
+        fetching_data(start_time,end_time,fieldnames,csv_relative_url)
+    else:
+        print("Invalid action. Please choose 'diagrams', 'data_analysis', or 'fetch'.")
+
+

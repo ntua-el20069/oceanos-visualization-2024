@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Select</title>
+</head>
+<body>
+
+    <h2>Diagram Select Form</h2>
+
+    <form action="/make-diagram" method="POST">
+
+        <label for="startDateTime">Start Date Time:</label>
+        <input type="datetime-local" id="startDateTime" name="startDateTime" value="" required> <br>
+
+        <label for="endDateTime">End Date Time:</label>
+        <input type="datetime-local" id="endDateTime" name="endDateTime" value="" required>   <br>
+
+        <br>
+
+        <label for="plotType">Select Plot Type:</label>
+        <select id="plotType" name="plotType">
+            <option value="line" selected>Line Plot</option>
+            <option value="scatter">Scatter Plot</option>
+            <option value="current_with_temp">Current with Temperature Plot</option>
+        </select>
+
+        <br><br>
+
+        <label for="dataSelection">Select Data:</label>
+        <select id="dataSelection" name="dataSelection">
+            <option value="motor_current" selected>Motor Current</option>
+            <option value="motor_tempMotor">Motor Temperature</option>
+            <option value="battery_current">Battery Current</option>
+            <option value="battery_temperature">Battery Temperature</option>
+            <option value="battery_voltage">Battery Voltage</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <br>
+
+        <input type="submit" value="Generate Diagram">
+
+        <script>
+            // Set default values for start and end date-time
+            var now = new Date();
+            var fifteenMinutesAgo = new Date(now - 15 * 60 * 1000);
+
+            // Format date for input value (YYYY-MM-DDTHH:mm)
+            function formatDate(date) {
+                var year = date.getFullYear();
+                var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                var day = date.getDate().toString().padStart(2, '0');
+                var hours = date.getHours().toString().padStart(2, '0');
+                var minutes = date.getMinutes().toString().padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            }
+
+            document.getElementById("startDateTime").value = formatDate(fifteenMinutesAgo);
+            document.getElementById("endDateTime").value = formatDate(now);
+
+            // Set default values for plot type and selected data
+            document.getElementById("plotType").value = "line";
+            document.getElementById("dataSelection").value = ["motor_current"];
+        </script>
+
+    </form>
+
+</body>
+</html>
