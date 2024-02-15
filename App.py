@@ -6,9 +6,6 @@ from Diagrams import statistics_plots, current_with_temp2
 import pandas as pd
 from datetime import datetime
 
-mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to run the script in our local computer or in host (pythonanywhere)
-                            # 'client' if you run it in client (one of our PC that runs client code)
-
 app = Flask(__name__)
     
 @app.route('/')  # basic web route
@@ -95,7 +92,7 @@ def diagramTest():
 @app.route('/diagram/<type>/<field>') # diagram route
 def diagram(type, field):
     if type == 'current_with_temp':
-        return render_template(f'diagrams/{type}/{field}.html')
+        return render_template(f'/diagrams/{type}/motor_current_with_{field}.html')
     return render_template(f'diagrams/statics/{type}/{field}.html')
 
 if __name__ == '__main__':

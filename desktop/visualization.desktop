@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=App
-Exec=xterm -hold -e "bash -c 'sleep 2 && cd /home/nikolaospapa3/Documents/Oceanos/Telemetry/oceanos-visualization-2024 && python3 restart/restart_visualization.py'"
-# use instead the following line if in rasberry py (ensure you have installed xterm - else try only the instruction inside )
-# Exec=xterm -hold -e "bash -c 'sleep 1 && cd /home/oceanos/oceanos-visualization-2024 && python3 restart/restart_visualization.py'"
+# Exec=xterm -hold -e "bash -c 'sleep 2 && cd /home/nikolaospapa3/Documents/Oceanos/Telemetry/Monaco2024/Raspberry-Client-Host && python3 restart/restart_visualization.py'"
+# use instead the following line if in raspberry pi  (ensure you have installed xterm - else try only the instruction inside )
+Exec=xterm -hold -e "bash -c 'sleep 1 && cd /home/oceanos/Monaco2024/Raspberry-Client-Host && python3 restart/restart_visualization.py'"
 Terminal=true

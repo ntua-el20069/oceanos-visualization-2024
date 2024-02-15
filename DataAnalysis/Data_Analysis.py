@@ -34,6 +34,7 @@ def max_min_values(time_values,limit,data):
     # Add max_times as the fourth column "Duration"
     max_df["Duration"] = max_df["Fieldname"].map(lambda x: max_times[x][1])
 
-    max_df.to_csv(f"DataAnalysis/results/{limit}_values.csv", index=False)
+    # Save the results to a csv file
+    #max_df.to_csv(f"DataAnalysis/results/{limit}_values.csv", index=False)
     return max_df
 

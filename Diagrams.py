@@ -5,11 +5,19 @@ import plotly.express as px
 from DataAnalysis.Demands import *    # switch with Server_Data if needed
 #from DataAnalysis.Server_Data import fieldnames,data
 from DataAnalysis.Data_Analysis import max_min_values
-from useful import fieldnames, csv_url
+from useful import fieldnames, csv_url, host_read_csv_path, client_read_csv_path, mode, pre_path
 from plotly.subplots import make_subplots
 import plotly.graph_objs as go
 
-csv_relative_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'
+if mode == 'local':
+    csv_relative_url = csv_url
+    csv_relative_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv' # CHANGE remove this line when we resolve problem with datetime
+elif mode == 'client': 
+    csv_relative_url = client_read_csv_path
+    csv_relative_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv' # CHANGE remove this line when we resolve problem with datetime
+else:
+    csv_relative_url = host_read_csv_path
+    csv_relative_url = '/home/oceanosntua/oceanos-visualization-2024/static/csv/serverdata_2023-12-17_16-11-34.csv' # CHANGE remove this line when we resolve problem with datetime
 
 def plotting_values(time_values,field,type):
 
@@ -23,7 +31,7 @@ def plotting_values(time_values,field,type):
         return
 
     # To save the plot as an HTML file
-    fig.write_html(f'templates/diagrams/{type}/{field}.html')
+    fig.write_html(pre_path + f'templates/diagrams/{type}/{field}.html')
 
 def current_with_temp(time_values):
 
@@ -52,7 +60,7 @@ def current_with_temp(time_values):
         fig.update_yaxes(title_text="<b>Motor Current</b>", secondary_y=False)
         fig.update_yaxes(title_text=f"<b>{field}</b>", secondary_y=True)
 
-        fig.write_html(f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
+        fig.write_html(pre_path + f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
 
 def current_with_temp2(start_time,end_time):
     global fieldnames
@@ -98,7 +106,7 @@ def current_with_temp2(start_time,end_time):
         fig.update_yaxes(title_text="<b>Motor Current</b>", secondary_y=False)
         fig.update_yaxes(title_text=f"<b>{field}</b>", secondary_y=True)
 
-        fig.write_html(f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
+        fig.write_html(pre_path + f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
 
 def statistics_plots(start_time,end_time,field,type):
     global fieldnames
@@ -146,7 +154,7 @@ def statistics_plots(start_time,end_time,field,type):
         return
 
     # To save the plot as an HTML file
-    fig.write_html(f'templates/diagrams/statics/{type}/{field}.html')
+    fig.write_html(pre_path + f'templates/diagrams/statics/{type}/{field}.html')
 
 
 ### Main program to test each function

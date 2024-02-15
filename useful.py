@@ -31,4 +31,9 @@ delay = 0.5     # this is the MIN delay of sending data to client or/and host (M
                 # I think it is not that important to CHANGE this (delay of taking data from CSV) 
                 # 8ewroume mia ka8ysterhsh, an den mas aresei thn allazoyme
 
+mode = 'local' # CHANGE ! mode is 'local' or 'web' depending on if we want to run the script in our local computer or in host (pythonanywhere)
+                            # 'client' if you run it in client (one of our PC that runs client code)
+
+pre_path = '/home/oceanosntua/oceanos-visualization-2024/' if mode == 'web' else ''  # CHANGE !  Set the path of the project in the host (pythonanywhere) 
+
 REAL_TIME = False        #   CHANGE !   Set to True if you want to take Real Time Data (last line of CSV) , when False it just simulates the csv ...
