@@ -14,15 +14,14 @@ the MEBC 2024. It is hosted on web, to visit follow the link below:
 
 ## Quick Changes in the Code 
 
-1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME` to have real time data (True) or not (False - simulate for development purposes), change significant paths. 
+1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME` to have real time data (True) or not (False - simulate for development purposes), change significant paths.  Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'client' for the PC running client code.
 In addition, modify variables so as to select if you want to send to web-host (pythonanywhere) or client (e.g. your computer running client python code) or both. (If you do not send to client, you do not need to run ngrok and client code !). 
-2. `App.py`: Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'client' for the PC running client code
-3. Add <strong>CSV</strong> in this Folder: `static/csv`   
-4. <strong>Javascript Files</strong> here: `static/functions` <br>
+2. Add <strong>CSV</strong> in this Folder: `static/csv`   
+3. <strong>Javascript Files</strong> here: `static/functions` <br>
         - Here you can change the visualization RELOAD PERIOD: `setInterval` (2nd argument is time in ms) in `events.js`. <br>
         - You can add a new data visualization (or change sequence) by adding a data in list `allData` in `data.js` (check the class definition of `Data`). <br>
         - You can change the display of the roundSliders in `display.js` after you check <strong>roundSlider</strong> attributes `static/dist/roundslider.js` <br>
-5. <strong>Styles</strong> `static/styles/styles.css` <br>
+4. <strong>Styles</strong> `static/styles/styles.css` <br>
         - Here you can change the text (font) size for visualization by changing the variable `--textSize`.
 
 ## Visualization test
@@ -49,7 +48,7 @@ pip install flask pandas requests
 
 ## ToDos for Correct Visualization Check (ensure continuous visualization)
 
-1. Use `restart` files in the `Exec` configuration of the `.desktop` files (`ngrok.desktop` and `firefox.desktop`)
+1. Use `restart` files in the `Exec` configuration of the `.desktop` files (`firefox.desktop`)
 2. Repeat the steps for the Raspberry Pi that will run in MEBC (`xterm` may not be installed there)
 3. Change code in `useful.py` (make `REAL_TIME = True`) so as to get real time data - read the last line of the CSV in which `gps_with_temp.py` writes.
 
@@ -59,7 +58,7 @@ pip install flask pandas requests
 2. Write in bash console in Python `cd /home/oceanosntua/`
 3. Git clone the repo: `git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git`
 4. Enter the repo directory: `cd oceanos-visualization-2024/`
-5. In pythonanywhere file `/home/oceanosntua/oceanos-visualization-2024/App.py`: set `mode` to the value 'web' instead of 'local'
+5. In pythonanywhere file `/home/oceanosntua/oceanos-visualization-2024/useful.py`: set `mode` to the value 'web' instead of 'local'
 6. Reload the website from pythonanywhere reload button.
 7. Run the <strong>local</strong> `server.py`.
 8. Refresh the web page and you will see that data change in the Normal mode visualization!
@@ -73,7 +72,7 @@ rm -r /home/oceanosntua/oceanos-visualization-2024
 cd /home/oceanosntua/
 git clone https://github.com/ntua-el20069/oceanos-visualization-2024.git
 cd oceanos-visualization-2024/
-vim App.py
+vim useful.py
 ```
 
 ## Basic Understanding of the data transmission to Web Host and client PC
