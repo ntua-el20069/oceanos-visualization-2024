@@ -23,6 +23,7 @@ def reload():
     elif mode == 'client':
         return jsonify(readCSV(client_read_csv_path, fieldnames, realTime = True))
     else: # 'web' mode
+        ## CAUTION: this global variable should be returned only if we deploy with only one worker
         return data_now
         #return jsonify(readCSV(host_read_csv_path, fieldnames, realTime = True))  
 
@@ -75,6 +76,7 @@ def make_diagram():
 
         start_time = start_datetime.time()
         end_time = end_datetime.time()
+        print(f"Start : {start_time},       End :  {end_time}")
 
         start_timedelta = pd.to_timedelta(str(start_time))
         end_timedelta = pd.to_timedelta(str(end_time))
@@ -97,9 +99,10 @@ def diagramTest():
 
 @app.route('/diagram/<type>/<field>') # diagram route
 def diagram(type, field):
-    if type == 'current_with_temp':
-        return render_template(f'/diagrams/{type}/motor_current_with_{field}.html')
-    return render_template(f'diagrams/statics/{type}/{field}.html')
+    path = f'diagrams/{type}/motor_current_with_{field}.html' if type == 'current_with_temp' else f'diagrams/statics/{type}/{field}.html'
+    with open(path, 'r') as file:
+        diagram = file.read()
+        return diagram
 
 if __name__ == '__main__':
     # Start separate thread for visualization

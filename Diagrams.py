@@ -31,7 +31,7 @@ def plotting_values(time_values,field,type):
         return
 
     # To save the plot as an HTML file
-    fig.write_html(pre_path + f'templates/diagrams/{type}/{field}.html')
+    fig.write_html(pre_path + f'diagrams/{type}/{field}.html')
 
 def current_with_temp(time_values):
 
@@ -60,7 +60,7 @@ def current_with_temp(time_values):
         fig.update_yaxes(title_text="<b>Motor Current</b>", secondary_y=False)
         fig.update_yaxes(title_text=f"<b>{field}</b>", secondary_y=True)
 
-        fig.write_html(pre_path + f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
+        fig.write_html(pre_path + f'diagrams/current_with_temp/motor_current_with_{field}.html')
 
 def current_with_temp2(start_time,end_time):
     global fieldnames
@@ -106,7 +106,7 @@ def current_with_temp2(start_time,end_time):
         fig.update_yaxes(title_text="<b>Motor Current</b>", secondary_y=False)
         fig.update_yaxes(title_text=f"<b>{field}</b>", secondary_y=True)
 
-        fig.write_html(pre_path + f'templates/diagrams/current_with_temp/motor_current_with_{field}.html')
+        fig.write_html(pre_path + f'diagrams/current_with_temp/motor_current_with_{field}.html')
 
 def statistics_plots(start_time,end_time,field,type):
     global fieldnames
@@ -154,7 +154,7 @@ def statistics_plots(start_time,end_time,field,type):
         return
 
     # To save the plot as an HTML file
-    fig.write_html(pre_path + f'templates/diagrams/statics/{type}/{field}.html')
+    fig.write_html(pre_path + f'diagrams/statics/{type}/{field}.html')
 
 
 ### Main program to test each function
