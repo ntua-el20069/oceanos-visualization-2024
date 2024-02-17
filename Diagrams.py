@@ -11,13 +11,13 @@ import plotly.graph_objs as go
 
 if mode == 'local':
     csv_relative_url = csv_url
-    csv_relative_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv' # CHANGE remove this line when we resolve problem with datetime
+    csv_relative_url = 'static/csv/all_merged.csv' # CHANGE remove this line when we resolve problem with datetime
 elif mode == 'client': 
     csv_relative_url = client_read_csv_path
-    csv_relative_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv' # CHANGE remove this line when we resolve problem with datetime
+    csv_relative_url = 'static/csv/all_merged.csv' # CHANGE remove this line when we resolve problem with datetime
 else:
     csv_relative_url = host_read_csv_path
-    csv_relative_url = '/home/oceanosntua/oceanos-visualization-2024/static/csv/serverdata_2023-12-17_16-11-34.csv' # CHANGE remove this line when we resolve problem with datetime
+    csv_relative_url = '/home/oceanosntua/oceanos-visualization-2024/static/csv/all_merged.csv' # CHANGE remove this line when we resolve problem with datetime
 
 def plotting_values(time_values,field,type):
 

@@ -8,14 +8,22 @@
 <body>
 
     <h2>Diagram Select Form</h2>
+    
+    <button onclick="setTime(fifteenMinutesAgo, now)"> Last 15 minutes </button> <br> <br>
+    Sea Trials 17/12/2023 : <br>
+    <button onclick="setTime(firstPropellerStart, firstPropellerEnd)">  1st Propeller </button>
+    <button onclick="setTime(secondPropellerStart, secondPropellerEnd)" >  2nd Propeller </button>
+    <button onclick="setTime(thirdPropellerStart, thirdPropellerEnd)">  3rd Propeller </button> <br><br>
+
 
     <form action="/make-diagram" method="POST">
+        
 
         <label for="startDateTime">Start Date Time:</label>
-        <input type="datetime-local" id="startDateTime" name="startDateTime" value="" required> <br>
+        <input type="datetime-local" id="startDateTime" name="startDateTime" value="" required> <br> <br>
 
         <label for="endDateTime">End Date Time:</label>
-        <input type="datetime-local" id="endDateTime" name="endDateTime" value="" required>   <br>
+        <input type="datetime-local" id="endDateTime" name="endDateTime" value="" required>   <br> <br>
 
         <br>
 
@@ -30,15 +38,17 @@
 
         <label for="dataSelection">Select Data:</label>
         <select id="dataSelection" name="dataSelection">
+            <!--
             <option value="motor_current" selected>Motor Current</option>
             <option value="motor_tempMotor">Motor Temperature</option>
             <option value="battery_current">Battery Current</option>
             <option value="battery_temperature">Battery Temperature</option>
-            <option value="battery_voltage">Battery Voltage</option>
+            <option value="battery_voltage">Battery Voltage</option>    
+            -->
             <!-- Add more options as needed -->
         </select>
 
-        <br>
+        <br> <br>
 
         <input type="submit" value="Generate Diagram">
 
@@ -46,6 +56,18 @@
             // Set default values for start and end date-time
             var now = new Date();
             var fifteenMinutesAgo = new Date(now - 15 * 60 * 1000);
+
+            // first propeller: 17-12-2023  from  13:06 until  15:38
+            var firstPropellerStart = new Date(2023, 11, 17, 13, 6);
+            var firstPropellerEnd = new Date(2023, 11, 17, 15, 38);
+
+            // second propeller: 17-12-2023  from  15:44 until  16:01
+            var secondPropellerStart = new Date(2023, 11, 17, 15, 44);
+            var secondPropellerEnd = new Date(2023, 11, 17, 16, 1);
+
+            // third propeller: 17-12-2023  from  16:05 until  17:01
+            var thirdPropellerStart = new Date(2023, 11, 17, 16, 5); 
+            var thirdPropellerEnd = new Date(2023, 11, 17, 17, 1);
 
             // Format date for input value (YYYY-MM-DDTHH:mm)
             function formatDate(date) {
@@ -57,12 +79,29 @@
                 return `${year}-${month}-${day}T${hours}:${minutes}`;
             }
 
-            document.getElementById("startDateTime").value = formatDate(fifteenMinutesAgo);
-            document.getElementById("endDateTime").value = formatDate(now);
+
+            function setTime(start, end){
+                document.getElementById("startDateTime").value = formatDate(start);
+                document.getElementById("endDateTime").value = formatDate(end);
+            }
 
             // Set default values for plot type and selected data
             document.getElementById("plotType").value = "line";
-            document.getElementById("dataSelection").value = ["motor_current"];
+            document.getElementById("dataSelection").value = ["speed"];
+
+            const selectElement =  document.querySelector('#dataSelection');
+            fieldnames =["speed", "rpm", "input_voltage", "motor_watt",  "motor_current", "battery_current",  "battery_ampere", "battery_voltage", "battery_temperature", "motor_tempMosfet", "motor_tempMotor", "motor_dutyCycle", "current_time" , "charge",  "rasp_temp"]
+            for (data of fieldnames){
+                var option = document.createElement('option');
+                option.value = data;
+                option.text = data;
+                // Q: Make this with JS: <option value="motor_current" selected>Motor Current</option>
+                if (option.value == "speed"){
+                    option.selected = true;
+                }
+                selectElement.appendChild(option);
+            }
+            
         </script>
 
     </form>
