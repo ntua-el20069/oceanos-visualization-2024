@@ -3,7 +3,7 @@ import socket
 import threading
 import time
 from useful import *
-from helpers.readCSV import readCSV
+from helpers.readCSV import readCSV, MEBC_data_from_total
 from helpers.sendWEB import send_website
 
 webhost_response = 'Not sent to web host yet. No Response.'
@@ -30,10 +30,12 @@ def send_messages_web():
 
 def send_MEBC_API():    ## NOT functional yet
     global MEBC_API_response
+    global MEBC_API_url
+    global team_token
     while True:
         initial_start = time.time()
         data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay) ## I should CHANGE something here about fieldnames
-        MEBC_API_response = send_website(data_now, MEBC_API_url)
+        MEBC_API_response = send_website(MEBC_data_from_total(data_now, team_token), MEBC_API_url)
         print(MEBC_API_response, end='')
         relax(initial_start)
 
@@ -48,7 +50,7 @@ def send_updates(client_socket):
             data_now = readCSV(csv_url, fieldnames, realTime = REAL_TIME, delay = delay)
             data_message = str(data_now)
             start = time.time() 
-            message = data_message + data_response_delimiter + webhost_response
+            message = data_message + data_response_delimiter + webhost_response + MEBC_API_response
             client_socket.sendall(message.encode())
             end = time.time()
             print(f'Send message to client via {blue} TCP {reset_color}(Time consumed: {blue} {(end-start):.3f} seconds {reset_color})')

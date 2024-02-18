@@ -2,11 +2,13 @@ import requests
 import time
 
 green = "\033[32m"
+magenta = "\033[35m"
 red = "\033[31m"
 # Reset ANSI escape code for default text color
 reset_color = "\033[0m"
+our_website = 'http://oceanosntua.pythonanywhere.com/send-data'
 
-def send_website(data_now: dict, url = 'http://oceanosntua.pythonanywhere.com/send-data'):
+def send_website(data_now: dict, url = our_website):
     start = time.time()
     try: 
         response = requests.post(
@@ -19,8 +21,10 @@ def send_website(data_now: dict, url = 'http://oceanosntua.pythonanywhere.com/se
 
         response_text = response.content.decode('utf-8')
         
-        out = f'{green} HTTP POST {reset_color} Request Response: (Time consumed: {green} {(end-start):.3f} seconds {reset_color})\t Response: '
-        color = green if 'OK' in response_text else red
+        color = green if url == our_website else magenta
+        out = f'{color} HTTP POST {reset_color} Request Response: (Time consumed: {color} {(end-start):.3f} seconds {reset_color})\t Response: '
+        if 'error' in response_text:
+            color = red
         out += f"{color}{response_text}{reset_color}"
     
     except requests.exceptions.ConnectTimeout as err:

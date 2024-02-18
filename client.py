@@ -25,7 +25,7 @@ client.connect(('8.tcp.eu.ngrok.io', 20628))  # Replace YOUR_NGROK_PORT with the
 # Test gia na fanei oti leitoyrgei h syndesh
 print(fieldnames)
 # Receive the welcome message from the server
-data = client.recv(1024)
+data = client.recv(4096)
 print(f"\n\n\t {data.decode()}")
 print("\n\n\t Connected to the server.\n\n")
 
@@ -37,7 +37,7 @@ with open(client_read_csv_path, 'a') as csv_file:
 try:
     while True:
         # Receive data from the server
-        response = client.recv(1024)
+        response = client.recv(4096)
         if not response:
             print(f"\n\t Received empty data (maybe server closed) \n")
             break

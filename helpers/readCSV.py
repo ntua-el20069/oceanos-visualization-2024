@@ -16,3 +16,13 @@ def readCSV(csv_url, fieldnames, realTime = True, delay = 1.0) -> dict:
     # bazw se ka8e metablhth thn antistoixh timh apo to panw dianusma se morfh str gia na emfanizetai sthn o8onh swsta
     ### Return Dictionary with data now
     return {label : str(x) for label, x in zip(fieldnames, data1)}
+
+def MEBC_data_from_total(data: dict, team_token: str) -> dict:
+    return {
+        "temp1": data["battery_temperature"],
+        "voltage" : data["battery_voltage"],
+        "current": data["battery_current"],
+        "lat" : data["latitude"],
+        "lon" : data["longitude"],
+        "team" : team_token
+    }

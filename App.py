@@ -9,6 +9,7 @@ from datetime import datetime
 app = Flask(__name__)
     
 data_now = {}
+MEBC_data = {}
 
 @app.route('/')  # basic web route
 def home():
@@ -41,6 +42,17 @@ def send_data():
         return jsonify({"message" : f'Error: {e}'}), 400 
     return jsonify({"message" : 'OK'}), 200    
 
+@app.route('/monitoringdata', methods = ['GET', 'POST']) 
+def monitoringdata():
+    global MEBC_data
+    if request.method == 'GET':
+        return jsonify(MEBC_data)
+    ## POST request
+    try:
+        MEBC_data = request.get_json()
+    except Exception as e:
+        return jsonify({"message" : f'Error: {e}'}), 400
+    return jsonify({"message":'OK'}), 200
 
 @app.route('/example') # example about how fetch & reload works
 def example():
@@ -100,7 +112,7 @@ def diagramTest():
 @app.route('/diagram/<type>/<field>') # diagram route
 def diagram(type, field):
     path = f'diagrams/{type}/motor_current_with_{field}.html' if type == 'current_with_temp' else f'diagrams/statics/{type}/{field}.html'
-    with open(path, 'r') as file:
+    with open(pre_path + path, 'r') as file:
         diagram = file.read()
         return diagram
 

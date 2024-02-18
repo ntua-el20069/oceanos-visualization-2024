@@ -2,9 +2,10 @@ fieldnames =["current_time", "latitude", "longitude", "speed", "miles", "miles_l
 
 MEBC_fieldnames = ["temp1","temp2","temp3","voltage","current","lat","lon","team"]
 
-IP = ''
-PORT = ''
-MEBC_API_url = f"http://{IP}:{PORT}/monitoringdata/"
+IP = '127.0.0.1' # CHANGE ! IP is the IP of the MEBC_API server
+PORT = '5000'   # CHANGE ! PORT is the PORT of the MEBC_API server
+MEBC_API_url = f"http://{IP}:{PORT}/monitoringdata"
+team_token = '# Here we will place the token of our team'  # CHANGE ! team_token is the token of our team in MEBC_API
 
 #csv_url = 'static/csv/serverdata_2023-12-17_16-11-34.csv'  ### CHANGE with the path of the CSV you want to visualize Live (Normal Mode) (as Raspberry)
 csv_url = 'static/csv/merged_file.csv'  
@@ -21,7 +22,7 @@ yellow = "\033[33m"
 magenta = "\033[35m"
 reset_color = "\033[0m"
 
-send_to_MEBC_API = False  # CHANGE ! MEBC_API is the server of the MEBC 
+send_to_MEBC_API = True  # CHANGE ! MEBC_API is the server of the MEBC 
 send_to_client = True  # CHANGE ! client is the computer in which we run client python code (receive messages via TCP)
 send_to_host = True   # CHANGE ! host is the website (pythonanywhere) in which data are sent with HTTP POST request
 
