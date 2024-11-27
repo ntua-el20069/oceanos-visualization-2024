@@ -12,6 +12,9 @@ the MEBC 2024. It is hosted on web, to visit follow the link below:
 1. <strong> Raspberry / Test-Server PC </strong> : Proceed to Visualization test
 2. <strong> Client PC </strong> : Just download client folder from Google Drive, and read the instructions inside the README there
 
+## Telemetry Architecture
+<img src="images/telemetry-architecture.png" width="100%"/>
+
 ## Quick Changes in the Code 
 
 1. `useful.py`: Ctrl + F: `CHANGE` : to see how to change csv that is read, reading of last line of the csv `REAL_TIME` to have real time data (True) or not (False - simulate for development purposes), change significant paths.  Ctrl + F : `CHANGE` : set `mode` to the value 'local' for Rasberry or your computer testing, 'client' for the PC running client code.
