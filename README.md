@@ -2,6 +2,8 @@
 check `OceanosTeam/Monaco2024`
 # Visualization & Data Transmission for Oceanos NTUA 
 
+The "oceanos-visualization" Embedded software project, tailored to the needs of Oceanos team  (university team constructing a single-seat electric boat) (for the year 2024), which provides data receiving from boat's microcomputer peripherals using multiple communication protocols, local storage of the data, data sending using two alternatives (HTTP requests to a web host that shows all data to browser clients / TCP sockets for faster communication to a web socket client computer)  
+
 This is a repository used to visualize several parameters of Oceanos NTUA Boat, 
 such as Motor Temperature, Rounds per Minute of the Motor, that are required in
 the MEBC 2024. It is hosted on web, to visit follow the link below:
@@ -14,6 +16,9 @@ the MEBC 2024. It is hosted on web, to visit follow the link below:
 
 ## Telemetry Architecture
 <img src="images/telemetry-architecture.png" width="100%"/>
+
+## Telemetry Dashboard
+<img src="images/dashboard-view.png" width="100%"/>
 
 ## Quick Changes in the Code 
 
